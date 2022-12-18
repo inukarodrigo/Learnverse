@@ -1,0 +1,118 @@
+version: '3.1'
+intents:
+- affirm
+- ask_lower_stress
+- ask_sleep
+- ask_study_amount
+- bot_challenge
+- deny
+- goodbye
+- greet
+- mood_great
+- mood_unhappy
+- inform
+- out_of_scope
+- thankyou
+
+#slots:
+#  confirm_study:
+#    type: unfeaturized
+#  study_hours:
+#    type: unfeaturized
+#  sleep:
+#    type: unfeaturized
+#  stress_level:
+#    type: unfeaturized
+#  study_goal:
+#    type: unfeaturized
+
+    #new syntax
+slots:
+  confirm_study:
+    type: text
+    influence_conversion : false
+    mappings:
+      type:custom
+
+  study_hours:
+    type: text
+    influence_conversion : true
+    mappings:
+      type:custom
+
+  sleep:
+    type: text
+    influence_conversion : true
+    mappings:
+      type:custom
+
+  stress_level:
+    type: text
+    influence_conversion : true
+    mappings:
+      type:custom
+
+  study_goal:
+    type: text
+    influence_conversion : false
+    mappings:
+      type:custom
+
+
+entities:
+  - study
+  - sleep
+  - stress
+
+responses:
+  utter_greet:
+  - text: Hey! It's time to see if you have reached your goals today
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_stress_info:
+  - text: It's okay to feel overwhelmed at times. Try to set realistic expectations and follow good time management techniques like working according to a work plan or a time table, divide the tasks into bite size manageable pieces, do some relaxing activities like breathing exercises, listening to music, dancing or a quick nap.
+  utter_sleep_info:
+  - text: Students at your age should get 7-9 hours of sleep to function to live a healthy life while balancing studies. If you are really sleeping then a quick nap might help you. It is a fact that the ideal time to study is between 4am-6am. If you can sleep early and study in the morning that is fine. But if you are night owl then the night time is the ideal time to study. Do not forget to get a good night sleep '
+  utter_study_amount:
+  - text: Rather than focusing on the amount of hours you study, focus on the quality of the studying. It is useless to study for an hour losing focus and covering a 5min worth amount of studying. Sometimes you get into the mood and when in that mood, push work that you planned for the next day as you dont know how you might feel by then. Basically, when you are on a roll, then keep moving. Ride the wave.
+  utter_ask_confirm_study:
+    - text : Did you study today? Don't sweat it if you didn't run a marathon -  walk count!
+  utter_ask_study_amount:
+    - text: for how long did you study today
+  utter_ask_confirm_goal:
+    - text: did you reach your goal
+  utter_ask_stress_level:
+    - text: how do you rate your stress level..low/medium or high
+  utter_ask_sleep_amount:
+    -text: How many hours of good night sleep you got today
+  utter_slot_values:
+    - text: " Here is your daily study and wellness log:\n
+              - Studied: {confirm_study}\n
+              - Amount studied: {study_amount}\n
+              - Study goal reached: {confirm_goal}\n
+              - Stress Level: {stress_level}\n
+              - Amount of sleep: {sleep_amount)"
+  utter_no_worries:
+    - text: No problem ;)
+
+  utter_ask_continue:
+    - text: Sorry, I dont quite understand. Do you want to continue?
+
+forms:
+  - daily_form:
+
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+
