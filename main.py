@@ -1,16 +1,46 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import sqlite3
+from sqlite3 import Error
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def create_connection(db_file):
+    """ create a database connection to the SQLite database
+        specified by the db_file
+    :param db_file: database file
+    :return: Connection object or None
+    """
+    conn = None
+    try:
+        conn = sqlite3.connect(db_file)
+    except Error as e:
+        print(e)
+
+    return conn
 
 
-# Press the green button in the gutter to run the script.
+def select_all_tasks(conn):
+    """
+    Query all rows in the tasks table
+    :param conn: the Connection object
+    :return:
+    """
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM Test WHERE CorrectAnswer= 'A and B only'")
+
+    rows = cur.fetchall()
+
+    for row in rows:
+        print(row)
+
+
+def main():
+    database = r"E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"
+
+    # create a database connection
+    conn = create_connection(database)
+    with conn:
+        print("2. Query all tasks")
+        select_all_tasks(conn)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    main()
