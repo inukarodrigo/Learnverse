@@ -1,0 +1,30 @@
+This dataset has 2 columns.
+RelatedLesson and no_of_occurrence
+This table represents how many questions (no_of_occurrence) student answered incorrectly in each lesson
+
+For ex:
+RelatedLesson,no_of_occurrence
+introduction to computer,1
+concept of it,5
+
+Student has incorrectly answered one question from 'introduction to computer' lesson and 5 questions from 'concept of it'
+lesson
+
+Explanation of the code:
+This code has to be run through jupyter notebook to get the graphs
+
+# analysing the class (no_of_occurrence) distribution in each dataset.
+
+# These values can get change each time when the code runs
+In the training dataset,
+student has answered one question incorrectly from 133 lessons, two questions incorrectly from 146 lessons,
+three questions incorrectly from 143 lessons, four questions incorrectly from 139 lessons
+five questions incorrectly from 131 lessons
+
+In the Validation dataset,
+student has answered one question incorrectly from 36 lessons, two questions incorrectly from 23 lessons,
+three questions incorrectly from 24 lessons, four questions incorrectly from 38 lessons
+five questions incorrectly from 28 lessons
+
+
+
