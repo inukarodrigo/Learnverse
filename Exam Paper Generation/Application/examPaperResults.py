@@ -110,6 +110,7 @@ class examPaperResults:
             gsheet.update_cell(c.row, 3, req["score"])  # Score means the column name which needs to be update
         return jsonify(self.retrieveDataFromTheSheet())
 
+# Testing the code
 x = examPaperResults()
 print(x.get_list_of_questions_given_in_the_paper())
 print(x.get_list_of_Questions_from_the_DB("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
