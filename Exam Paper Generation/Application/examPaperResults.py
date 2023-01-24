@@ -79,20 +79,28 @@ for question in listOfQuestionsGivenInThepaper:
 print(listOfQuestionsGivenInThepaper)
 print(listOfQuestionsInTheDB)
 
+
 # Retrieving the incorrectly answered questions
 @app.route('/incorrect_questions/', methods=["GET"])
 def incorrect_questions():
     list_of_incorrect_questions = []
     count = -1
-    for key,value in listOfQuestionsGivenInThepaper.items():
+    for key, value in listOfQuestionsGivenInThepaper.items():
         count += 1
         questionInTheDataBase = listOfQuestionsInTheDB[count]
         if value != questionInTheDataBase.get("CorrectAnswer"):
             list_of_incorrect_questions.append(listOfQuestionsInTheDB[count])
+
+    # Removing unnecessary keys from the list_of_incorrect_questions
+    for i in list_of_incorrect_questions:
+        del i["CorrectAnswer"]
     return list_of_incorrect_questions
 
+
 x = incorrect_questions()
-print(len(x))
+print(x)
+
+
 # Updating the data in the sheet (If required)
 # An example PATCH Route to update a review
 @app.route('/update_review/', methods=["PATCH"])
