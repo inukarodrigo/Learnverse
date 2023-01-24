@@ -9,37 +9,36 @@ app = Flask(__name__)
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+
 # Accessing the Google sheet we want to modify
-credential = ServiceAccountCredentials.from_json_keyfile_name("credentials.json",
+def accessingGoogleSheet(jsonFilePath):
+    credential = ServiceAccountCredentials.from_json_keyfile_name(jsonFilePath,
 
-                                                              ["https://spreadsheets.google.com/feeds",
-                                                               "https://www.googleapis.com/auth/spreadsheets",
-                                                               "https://www.googleapis.com/auth/drive.file",
-                                                               "https://www.googleapis.com/auth/drive"])
-client = gspread.authorize(credential)
-gsheet = client.open("Sample Paper (Responses)").sheet1
+                                                                  ["https://spreadsheets.google.com/feeds",
+                                                                   "https://www.googleapis.com/auth/spreadsheets",
+                                                                   "https://www.googleapis.com/auth/drive.file",
+                                                                   "https://www.googleapis.com/auth/drive"])
+    client = gspread.authorize(credential)
+    return client.open("Sample Paper (Responses)").sheet1
 
-# This object has all the data stored in the sheet
-# Do not use this object without pre-processing
-dataInTheSheet = gsheet.get_all_records()
+# Retrieving the data in the sheet
+def retrieveDataFromTheSheet():
+    gsheet = accessingGoogleSheet("credentials.json")
+    # This object has all the data stored in the sheet
+    dataInTheSheet = gsheet.get_all_records()
 
-
-# Removing unnecessary data from the sheet
-@app.route('/preProcessing_sheet/', methods=["GET"])
-def preProcessing_sheet():
     # Removing Timestamp and Score columns
     del dataInTheSheet[0]["Timestamp"]
     del dataInTheSheet[0]["Score"]
 
-
-preProcessing_sheet()  # This is used to get clean data
+    return dataInTheSheet
 
 
 # Retrieving all the data from the sheet
 # An example GET Route to get all reviews
 @app.route('/all_reviews/', methods=["GET"])
 def all_reviews():
-    return jsonify(dataInTheSheet)
+    return jsonify(retrieveDataFromTheSheet())
 
 
 # Retrieving the questions with answers from the DB
@@ -59,25 +58,30 @@ def sql_data_to_list_of_dicts(path_to_db, select_query, specific_question):
     finally:
         con.close()
 
+# This function will retrieve the questions given in the exam paper
+@app.route('/get_list_of_questions_given_in_the_paper/', methods=["GET"])
+def get_list_of_questions_given_in_the_paper():
+    dataInTheSheet = retrieveDataFromTheSheet()
+    return dataInTheSheet[0] # Returns a dictionary
 
-listOfQuestionsGivenInThepaper = dataInTheSheet[0]  # Returns a dictionary
-listOfQuestionsInTheDB = []  # Same list of questions given in the paper including the correct answer and the related lesson
-pathToTheDataBase = "E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"
 
 # This is to retrieve the questions which student answered from the DB
-for question in listOfQuestionsGivenInThepaper:
-    Query = "SELECT Question,CorrectAnswer, RelatedLesson from Test where Question = (?)"
-    # Changing the format of the question
-    if str(question).find("\n") != -1:
-        modifiedQuestion = str(question).replace("\n", "\r\n")
-    else:
-        modifiedQuestion = str(question)
+@app.route('/get_list_of_Questions_from_the_DB/', methods=["GET"])
+def get_list_of_Questions_from_the_DB(pathToTheDataBase):
+    # Same list of questions given in the paper including the correct answer and the related lesson
+    listOfQuestionsInTheDB = []
+    for question in get_list_of_questions_given_in_the_paper():
+        Query = "SELECT Question,CorrectAnswer, RelatedLesson from Test where Question = (?)"
+        # Changing the format of the question
+        if str(question).find("\n") != -1:
+            modifiedQuestion = str(question).replace("\n", "\r\n")
+        else:
+            modifiedQuestion = str(question)
 
-    questionInTheDB = sql_data_to_list_of_dicts(pathToTheDataBase, Query, modifiedQuestion)
-    listOfQuestionsInTheDB.append(questionInTheDB[0])
+        questionInTheDB = sql_data_to_list_of_dicts(pathToTheDataBase, Query, modifiedQuestion)
+        listOfQuestionsInTheDB.append(questionInTheDB[0])
 
-print(listOfQuestionsGivenInThepaper)
-print(listOfQuestionsInTheDB)
+    return listOfQuestionsInTheDB
 
 
 # Retrieving the incorrectly answered questions
@@ -85,9 +89,9 @@ print(listOfQuestionsInTheDB)
 def incorrect_questions():
     list_of_incorrect_questions = []
     count = -1
-    for key, value in listOfQuestionsGivenInThepaper.items():
+    for key, value in get_list_of_questions_given_in_the_paper().items():
         count += 1
-        questionInTheDataBase = listOfQuestionsInTheDB[count]
+        questionInTheDataBase = get_list_of_Questions_from_the_DB("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")[count]
         if value != questionInTheDataBase.get("CorrectAnswer"):
             list_of_incorrect_questions.append(listOfQuestionsInTheDB[count])
 
@@ -96,20 +100,22 @@ def incorrect_questions():
         del i["CorrectAnswer"]
     return list_of_incorrect_questions
 
-
-x = incorrect_questions()
-print(x)
-
-
 # Updating the data in the sheet (If required)
 # An example PATCH Route to update a review
 @app.route('/update_review/', methods=["PATCH"])
 def update_review():
     req = request.get_json()
+    gsheet = accessingGoogleSheet("credentials.json")
     cells = gsheet.findall(req["email"])  # Email means the column name given in the internet, can change it accordingly
     for c in cells:
         gsheet.update_cell(c.row, 3, req["score"])  # Score means the column name which needs to be update
-    return jsonify(dataInTheSheet)
+    return jsonify(retrieveDataFromTheSheet())
+
+listOfQuestionsGivenInThepaper = get_list_of_questions_given_in_the_paper()
+listOfQuestionsInTheDB = get_list_of_Questions_from_the_DB("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")
+print(listOfQuestionsGivenInThepaper)
+print(listOfQuestionsInTheDB)
+print(incorrect_questions())
 
 
 # Run the app
