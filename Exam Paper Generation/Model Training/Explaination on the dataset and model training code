@@ -1,30 +1,26 @@
-This dataset has 2 columns.
-RelatedLesson and no_of_occurrence
-This table represents how many questions (no_of_occurrence) student answered incorrectly in each lesson
+This dataset has 3 columns.
+RelatedLesson, no_of_occurrence, no_of_occurrence_future
+This table represents how many questions (no_of_occurrence) student answered incorrectly in each lesson and how many
+questions he will get wrong in future
 
 For ex:
-RelatedLesson,no_of_occurrence
-introduction to computer,1
-concept of it,5
+RelatedLesson, no_of_occurrence, no_of_occurrence_future
+introduction to computer,1, 2
+concept of it,5, 6
 
 Student has incorrectly answered one question from 'introduction to computer' lesson and 5 questions from 'concept of it'
-lesson
+lesson and he will incorrectly answer 2 questions and 6 questions respectively in future exam papers if he attend any
 
 Explanation of the code:
 This code has to be run through jupyter notebook to get the graphs
 
-# analysing the class (no_of_occurrence) distribution in each dataset.
+# Checking if there is a correlation between no_of_occurrence and no_of_occurrence_future variables using Heatmap
+ If we look across the matrix, the correlation value for no_of_occurance and no_of_occurance_future is 0.9, which indicates
+ that these variables are highly correlated.
 
-# These values can get change each time when the code runs
-In the training dataset,
-student has answered one question incorrectly from 133 lessons, two questions incorrectly from 146 lessons,
-three questions incorrectly from 143 lessons, four questions incorrectly from 139 lessons
-five questions incorrectly from 131 lessons
+# Plot sns pair plot to visually represent the positive/negative correlation between the variables.
+ So, based on the sns pair plot, the no_of_occurance is positively correlated to no_of_occurance_future.
 
-In the Validation dataset,
-student has answered one question incorrectly from 36 lessons, two questions incorrectly from 23 lessons,
-three questions incorrectly from 24 lessons, four questions incorrectly from 38 lessons
-five questions incorrectly from 28 lessons
-
-
-
+ # Creating dummy columns for the categorical columns
+ This is to divide 'Related Lessons' column into multiple columns based on the lesson name, so that it can be fed up
+ to the model as a feature(Independent variable)
