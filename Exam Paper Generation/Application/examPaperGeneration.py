@@ -1,3 +1,4 @@
+import sqlite3
 from examPaperResults import examPaperResults
 import importlib.machinery
 import importlib.util
@@ -61,6 +62,73 @@ def use_of_model():
 
     return lessons_with_predicted_no_of_occurrence
 
+
+def sql_data_to_list_of_dicts_1(path_to_db, select_query, relatedLesson, noOfOccurrence):
+    """Returns data from an SQL query as a list of dicts."""
+    try:
+        con = sqlite3.connect(path_to_db)
+        con.row_factory = sqlite3.Row
+        things = con.execute(select_query, (relatedLesson,noOfOccurrence,)).fetchall()
+        unpacked = [{k: item[k] for k in item.keys()} for item in things]
+        return unpacked
+    except Exception as e:
+        print(f"Failed to execute. Query: {select_query}\n with error:\n{e}")
+        return []
+    finally:
+        con.close()
+
+def sql_data_to_list_of_dicts_2(path_to_db, select_query, noOfOccurrence):
+    """Returns data from an SQL query as a list of dicts."""
+    try:
+        con = sqlite3.connect(path_to_db)
+        con.row_factory = sqlite3.Row
+        things = con.execute(select_query, (noOfOccurrence,)).fetchall()
+        unpacked = [{k: item[k] for k in item.keys()} for item in things]
+        return unpacked
+    except Exception as e:
+        print(f"Failed to execute. Query: {select_query}\n with error:\n{e}")
+        return []
+    finally:
+        con.close()
+
+
+def retrieve_questions_based_on_prediction(pathToTheDB):
+    # This functions will retrieve n number of questions where n is the predicted count which is given by the model
+    # along with answers to be included in the exam paper which student will do next
+    # It takes a dictionary which was returned by the use_of_model() function as the input
+
+    listOfQuestionsToMakeThePaper = []
+    for lesson, count in use_of_model().items():
+        Query = "Select * from Test where RelatedLesson = (?) Order By RANDOM() LIMIT (?)"
+
+        singleQuestionForThePaper = sql_data_to_list_of_dicts_1(pathToTheDB, Query, lesson, count)
+        for i in singleQuestionForThePaper:
+            listOfQuestionsToMakeThePaper.append(i)
+
+    return listOfQuestionsToMakeThePaper
+
+def retrieve_remaining_questions(pathToTheDB):
+    # This is used to retrieve the remaining questions for the exam paper after calling
+    # retrieve_questions_based_on_prediction() function
+
+    listOfQuestionsToMakeThePaper = retrieve_questions_based_on_prediction(pathToTheDB)
+    noOfQuestionsNeeded =50 - len(listOfQuestionsToMakeThePaper)
+
+    Query = "Select * from Test Order By RANDOM() LIMIT (?)"
+    remainingQuestions = sql_data_to_list_of_dicts_2(pathToTheDB,Query,noOfQuestionsNeeded)
+    for i in remainingQuestions:
+        listOfQuestionsToMakeThePaper.append(i)
+
+    return listOfQuestionsToMakeThePaper
+
+
+
+
 # Testing
 print(lessons_of_the_incorrect_questions())
 print(use_of_model())
+print(retrieve_questions_based_on_prediction("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
+print(len(retrieve_questions_based_on_prediction("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")))
+print(retrieve_remaining_questions("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
+print(len(retrieve_remaining_questions("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")))
+print(sql_data_to_list_of_dicts_1("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db","Select * from Test where RelatedLesson = (?) Order By RANDOM() LIMIT (?)",'introduction to computer',4))
