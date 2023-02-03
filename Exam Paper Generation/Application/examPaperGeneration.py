@@ -1,3 +1,4 @@
+import random
 import sqlite3
 from examPaperResults import examPaperResults
 import importlib.machinery
@@ -121,14 +122,46 @@ def retrieve_remaining_questions(pathToTheDB):
 
     return listOfQuestionsToMakeThePaper
 
+def transform_the_questions_for_the_application(pathToTheDB):
+    # This function is used to convert the questions in a format which can be used in the application
+
+    listOfQuestions = retrieve_remaining_questions(pathToTheDB)
+    listOfQuestionsInCorrectFormat = []
+    for i in listOfQuestions:
+        questionInCorrectFormat = {}
+        listOfOptions = []
+        for key,value in i.items():
+            if key == "Question":
+                questionInCorrectFormat['q'] = value
+            if key != "RelatedLesson" and key != "Question":
+                listOfOptions.append(value)
+
+        # Answers with incorrect options were appended to the list
+        correctAnswer = listOfOptions[0]
+
+        # Shuffling the elements in the list
+        shuffledListOfOptions = random.sample(listOfOptions,len(listOfOptions))
+
+        questionInCorrectFormat['options'] = shuffledListOfOptions
+        questionInCorrectFormat['answer'] = shuffledListOfOptions.index(correctAnswer) + 1 # listOfQuestions.index(correctAnswer) returns the index
+
+        # Appending the dict to the list
+        listOfQuestionsInCorrectFormat.append(questionInCorrectFormat)
+
+    return listOfQuestionsInCorrectFormat
+
+
+
+
 
 
 
 # Testing
-print(lessons_of_the_incorrect_questions())
-print(use_of_model())
-print(retrieve_questions_based_on_prediction("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
-print(len(retrieve_questions_based_on_prediction("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")))
-print(retrieve_remaining_questions("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
-print(len(retrieve_remaining_questions("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")))
-print(sql_data_to_list_of_dicts_1("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db","Select * from Test where RelatedLesson = (?) Order By RANDOM() LIMIT (?)",'introduction to computer',4))
+# print(lessons_of_the_incorrect_questions())
+# print(use_of_model())
+# print(retrieve_questions_based_on_prediction("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
+# print(len(retrieve_questions_based_on_prediction("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")))
+# print(retrieve_remaining_questions("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
+# print(len(retrieve_remaining_questions("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db")))
+# print(sql_data_to_list_of_dicts_1("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db","Select * from Test where RelatedLesson = (?) Order By RANDOM() LIMIT (?)",'introduction to computer',4))
+print(transform_the_questions_for_the_application("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))

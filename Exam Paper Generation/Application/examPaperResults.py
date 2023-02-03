@@ -111,11 +111,11 @@ class examPaperResults:
         return jsonify(self.retrieveDataFromTheSheet())
 
 # Testing the code
-x = examPaperResults()
-print(x.sql_data_to_list_of_dicts("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db","Select * from Test where RelatedLesson = (?)","concept of it"))
-print(x.get_list_of_questions_given_in_the_paper())
-print(x.get_list_of_Questions_from_the_DB("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
-print(x.incorrect_questions())
+# x = examPaperResults()
+# print(x.sql_data_to_list_of_dicts("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db","Select * from Test where RelatedLesson = (?)","concept of it"))
+# print(x.get_list_of_questions_given_in_the_paper())
+# print(x.get_list_of_Questions_from_the_DB("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
+# print(x.incorrect_questions())
 # Run the app
 if __name__ == "__main__":
     with app.test_request_context():
