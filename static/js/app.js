@@ -32,7 +32,7 @@ let counter;
 let currTime = 0;
 let totalTime = 0; 
 let widthValue = 0;
-let timeValue = 30;
+let timeValue = 144;
 let date = new Date();
 let ctr = date.getTime();
 

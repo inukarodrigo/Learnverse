@@ -1,4 +1,18 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, jsonify
+import importlib.machinery
+import importlib.util
+import os
+
+# Creating a reference to the modelTraining.py file so that functions in that file can be used
+current_dir = os.getcwd()
+abs_path = "E:\Apps\Python\Pycharm Projects\Learnverse\Exam Paper Generation\Application\examPaperGeneration.py"
+rel_path = os.path.relpath(abs_path, current_dir)
+
+loader = importlib.machinery.SourceFileLoader('examPaperGeneration.py', rel_path)
+spec = importlib.util.spec_from_loader('examPaperGeneration.py', loader)
+examPaperGeneration = importlib.util.module_from_spec(spec)
+loader.exec_module(examPaperGeneration)
+
 
 app = Flask(__name__)
 
@@ -112,6 +126,13 @@ def view_test_report():
 @app.route("/virtualClassRoom")
 def virtualClassRoom():
     return render_template("VirtualClassRoom.html")
+
+# Using the functions of other classes and returning the values in JSON format
+@app.route('/get_questions_for_paper1', methods=['GET'])
+def get_questions_for_paper1():
+    abs_path_for_the_db = "E:/Apps/Sqlite/DB Browser/Databases/DataSetDSGP.db"
+    rel_path = os.path.relpath(abs_path_for_the_db,current_dir)
+    return jsonify(examPaperGeneration.transform_the_questions_for_the_application_paper1(rel_path))
 
 if __name__ == "__main__":
     app.run(debug=True)

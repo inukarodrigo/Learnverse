@@ -1,3 +1,11 @@
+//Uncomment this code once I finish implementing all my features
+// let quiz;
+// fetch('/get_questions_for_paper1')
+//   .then(response => response.json())
+//   .then(data => {
+//     quiz = data;
+//   });
+
 const quiz=[
 {
 	q:'Which of the following is not a Java features?',
@@ -43,12 +51,12 @@ const quiz=[
 	q:'Which of the following tool is used to generate API documentation in HTML format from doc comments in source code?',
 	options:['javap tool','javaw command','Javadoc tool','javah command'],
 	answer:2
-},
+},/*
 {
 	q:'Which of the following creates a List of 3 visible items and multiple selections abled?',
 	options:['new List(false, 3)','new List(3, true)','new List(true, 3)','new List(3, false)'],
 	answer:1
-},
+}
 {
 	q:'Which of the following for loop declaration is not valid?',
 	options:['for ( int i = 99; i >= 0; i / 9 )','for ( int i = 7; i <= 77; i += 7 )','for ( int i = 20; i >= 2; - -i )','for ( int i = 2; i <= 20; i = 2* i )'],
@@ -73,7 +81,7 @@ const quiz=[
 	q:'What do you mean by nameless objects?',
 	options:['An object created by using the new keyword.','An object of a superclass created in the subclass.','An object without having any name but having a reference.','An object that has no reference.'],
 	answer:3
-}/*,
+},
 {
 	q:'An interface with no fields or methods is known as a ______',
 	options:['Runnable Interface','Marker Interface','Abstract Interface','CharSequence Interface'],
