@@ -1,3 +1,21 @@
+//Uncomment this code once I finish implementing all my features
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+
+/*
 const quiz=[
 {
 	q:'Which of the following data structure used to implement priority queues efficiently?',
@@ -73,7 +91,7 @@ const quiz=[
 	q:'Which of the following order is given by binary search tree if we traverse it in inorder?',
 	options:['ascending order','descending order','Random order','sequential order','Both A & D'],
 	answer:0
-}/*,
+},
 {
 	q:'Which of the following time complexity of bubble sort in best/worst case?',
 	options:['Best case: O(n), Worst case: O(n log(n))','Best case: O(n), Worst case: O(n^2)','Best case: O(n*log(n)), worst case: O(n*log(n))','None of the above'],
@@ -298,5 +316,6 @@ const quiz=[
 	q:'Which value is assigned to leaf of game tree if the board position corresponds to the "draw" result for the player?',
 	options:['1','0','-1','None of the above'],
 	answer:1
-}*/
+}
 ]
+*/

@@ -22,6 +22,7 @@ const thankyou5 = document.getElementById("thankyou5");
 const timeCount = quizBox.querySelector(".timer .timer_sec");
 const timeLine = quizBox.querySelector(".time_line");
 
+let listOfQuestionsWhichIsAnsweredIncorrectly = []
 let questionCounter = 0;
 let currentQuestion;
 let availableQuestions = [];
@@ -123,6 +124,8 @@ function getResult(element)
 				optionContainer.children[i].classList.add("correct");
 			}
 		}
+		//Appending the listOfQuestionsWhichIsAnsweredIncorrectly list
+		listOfQuestionsWhichIsAnsweredIncorrectly.push(currentQuestion.q)
 	}
 	attempt++;
 	unclickableOptions();
@@ -300,6 +303,7 @@ function resetQuiz()
 	questionCounter = 0;
     correctAnswers = 0;
     attempt = 0;
+	listOfQuestionsWhichIsAnsweredIncorrectly = [];
     clearInterval(counter);
 	clearInterval(counterLine);
 }
@@ -316,15 +320,21 @@ function tryAgainQuiz()
 	startQuiz();
 }
 
-function goToHome()
-{
-	//reset the quiz
-	resetQuiz();
-	//hide result box
-	resultBox.classList.add("hide");
-	//show home box
-	homeBox.classList.remove("hide");
-	window.location.replace("/selection");
+function goToHome(source) {
+  fetch('/retrieve_incorrect_questions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({listOfQuestionsWhichIsAnsweredIncorrectly: listOfQuestionsWhichIsAnsweredIncorrectly, source: source})
+  }).then(response => response.json())
+    .then(data => {
+      console.log(data);
+      resetQuiz();
+      resultBox.classList.add("hide");
+      homeBox.classList.remove("hide");
+      window.location.replace("/selection");
+    });
 }
 
 //### Starting Point ###

@@ -1,3 +1,22 @@
+//Uncomment this code once I finish implementing all my features
+//This will take the questions to be used in the exam paper, these questions were made with the use of prediction
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+
+/*
 const quiz=[
 {
 	q:'Which of following is shared structure of a set of similar objects?',
@@ -73,7 +92,7 @@ const quiz=[
 	q:'Object-oriented inheritance models the',
 	options:['“is a kind of” relationship','“has a” relationship','“want to be” relationship','inheritance does not describe any kind of relationship between classes','“contains” of relationship'],
 	answer:0
-}/*,
+},
 {
 	q:'The wrapping up of data and functions into a single unit is called',
 	options:['Abstraction','Polymorphism','Encapsulation','Inheritance'],
@@ -398,5 +417,5 @@ const quiz=[
 	q:'The private members of the base class are visible in derived class but are not accessible directly',
 	options:['TRUE','FALSE'],
 	answer:0
-}*/
-]
+}
+]*/

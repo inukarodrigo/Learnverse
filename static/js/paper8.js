@@ -1,3 +1,22 @@
+//Uncomment this code once I finish implementing all my features
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+
+
+/*
 const quiz=[
 {
 	q:'Which of the following functional interface represents a function that accepts a double-valued argument and produces a long-valued result?',
@@ -75,3 +94,4 @@ const quiz=[
 	answer:3
 }
 ]
+ */

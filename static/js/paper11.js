@@ -1,3 +1,21 @@
+//Uncomment this code once I finish implementing all my features
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+
+/*
 const quiz=[
 {
 	q:'What is not true of a Java bean?',
@@ -75,3 +93,4 @@ const quiz=[
 	answer:2
 }
 ]
+ */

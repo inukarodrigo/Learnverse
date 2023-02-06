@@ -1,3 +1,20 @@
+//Uncomment this code once I finish implementing all my features
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+/*
 const quiz=[
 {
 	q:'When does Exceptions in Java arises in code sequence?',
@@ -75,3 +92,4 @@ const quiz=[
 	answer:0
 }
 ]
+*/

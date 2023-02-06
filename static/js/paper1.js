@@ -1,11 +1,12 @@
 //Uncomment this code once I finish implementing all my features
-// let quiz;
-// fetch('/get_questions_for_paper1')
-//   .then(response => response.json())
-//   .then(data => {
-//     quiz = data;
-//   });
+let quiz;
+fetch('/get_questions_for_paper1')
+  .then(response => response.json())
+  .then(data => {
+    quiz = data;
+  });
 
+/*
 const quiz=[
 {
 	q:'Which of the following is not a Java features?',
@@ -51,7 +52,7 @@ const quiz=[
 	q:'Which of the following tool is used to generate API documentation in HTML format from doc comments in source code?',
 	options:['javap tool','javaw command','Javadoc tool','javah command'],
 	answer:2
-},/*
+},
 {
 	q:'Which of the following creates a List of 3 visible items and multiple selections abled?',
 	options:['new List(false, 3)','new List(3, true)','new List(true, 3)','new List(3, false)'],
@@ -506,5 +507,6 @@ const quiz=[
 	q:'Garbage collection only occurs sporadically during the execution of your program',
 	options:['TRUE','FALSE'],
 	answer:0
-}*/
+}
 ]
+*/

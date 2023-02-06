@@ -1,3 +1,20 @@
+//Uncomment this code once I finish implementing all my features
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+/*
 const quiz=[
 {
 	q:'An Array in Java is a collection of elements of ___ data type?',
@@ -73,7 +90,7 @@ const quiz=[
 	q:'What is the default value of byte, short, int or long data type elements of an array in Java?',
 	options:['0','1','NULL','Garbage value','size of data type'],
 	answer:0
-}/*,
+},
 {
 	q:'What is the default value of float or double data type elements of an array in Java?',
 	options:['0','1','NULL','Garbage value','0.0','0.0L'],
@@ -248,5 +265,6 @@ const quiz=[
 	q:'Which of these method of Array class is used sort an array or its subset?',
 	options:['binarysort()','bubblesort()','radixsort()','sort()'],
 	answer:3
-}*/
+}
 ]
+*/

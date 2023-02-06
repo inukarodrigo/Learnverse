@@ -1,3 +1,21 @@
+//Uncomment this code once I finish implementing all my features
+let quiz;
+fetch('/retrieve_incorrect_questions', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    listOfQuestionsWhichIsAnsweredIncorrectly: [],
+    source: ''
+  })
+})
+  .then(response => response.json())
+  .then(data => {
+    quiz = data.listOfQuestions;
+  });
+
+/*
 const quiz=[
 {
 	q:'toString() is defined in ',
@@ -73,7 +91,7 @@ const quiz=[
 	q:'String implementation follows which design pattern?',
 	options:['Factory Pattern','Flyweigth Design Pattern','SingleTon Pattern','All the above'],
 	answer:1
-}/*,
+},
 {
 	q:'Select all the interfaces implemented by String class A. Serializable B. Comparable C. Constable D. Cloneable',
 	options:['only A & B','only A','all the above','only A,B & C'],
@@ -298,5 +316,6 @@ const quiz=[
 	q:'Which value is assigned to leaf of game tree if the board position corresponds to the "draw" result for the player?',
 	options:['1','0','-1','None of the above'],
 	answer:1
-}*/
+}
 ]
+*/
