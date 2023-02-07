@@ -4,21 +4,38 @@ import importlib.util
 import os
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
-current_dir = os.getcwd()
-abs_path = "E:\Apps\Python\Pycharm Projects\Learnverse\Exam Paper Generation\Application\examPaperGeneration.py"
-rel_path = os.path.relpath(abs_path, current_dir)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+file_path_for_the_examPaperGenerationFile = os.path.join(current_dir,'Exam Paper Generation', 'Application', 'examPaperGeneration.py')
+abs_path = os.path.abspath(file_path_for_the_examPaperGenerationFile)
 
-loader = importlib.machinery.SourceFileLoader('examPaperGeneration.py', rel_path)
+loader = importlib.machinery.SourceFileLoader('examPaperGeneration.py', abs_path)
 spec = importlib.util.spec_from_loader('examPaperGeneration.py', loader)
 examPaperGeneration = importlib.util.module_from_spec(spec)
 loader.exec_module(examPaperGeneration)
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
-loader1 = importlib.machinery.SourceFileLoader('examPaperResults.py',
-                                               "E:\Apps\Python\Pycharm Projects\Learnverse\Exam Paper Generation\Application\examPaperResults.py")
+file_path_for_the_examPaperResultsFile = os.path.join(current_dir,'Exam Paper Generation', 'Application', 'examPaperResults.py')
+abs_path1 = os.path.abspath(file_path_for_the_examPaperResultsFile)
+loader1 = importlib.machinery.SourceFileLoader('examPaperResults.py', abs_path1)
 spec1 = importlib.util.spec_from_loader('examPaperResults.py', loader1)
 examPaperResults = importlib.util.module_from_spec(spec1)
 loader1.exec_module(examPaperResults)
+
+# Creating a reference to the modelTraining.py file
+file_path_for_the_modelTrainingFile = os.path.join(current_dir,'Exam Paper Generation','Model Training', 'modelTraining.py')
+abs_path_for_the_modelTrainingFile = os.path.abspath(file_path_for_the_modelTrainingFile)
+
+# Creating a reference to the abs_path_for_the_table_to_use_in_the_model_for_prediction.csv file
+file_path_for_the_csvFile = os.path.join(current_dir,'Exam Paper Generation','Model Training', 'table_to_use_in_the_model_for_prediction.csv')
+abs_path_for_the_csv_file = os.path.abspath(file_path_for_the_csvFile)
+
+# Creating a reference to the DataSetDSGP.db file
+file_path_for_the_DBFile = os.path.join(current_dir,'Exam Paper Generation','Model Training', 'DataSetDSGP.db')
+abs_path_for_the_db_file = os.path.abspath(file_path_for_the_DBFile)
+
+# Creating a reference to the table_to_train_the_model.csv file
+file_path_for_the_csvFile2 = os.path.join(current_dir,'Exam Paper Generation','Model Training', 'table_to_train_the_model.csv')
+abs_path_for_the_csv_file2 = os.path.abspath(file_path_for_the_csvFile2)
 
 app = Flask(__name__)
 
@@ -164,9 +181,7 @@ def virtualClassRoom():
 # Using the functions of other classes and returning the values in JSON format
 @app.route('/get_questions_for_paper1', methods=['GET'])
 def get_questions_for_paper1():
-    abs_path_for_the_db = "E:/Apps/Sqlite/DB Browser/Databases/DataSetDSGP.db"
-    rel_path = os.path.relpath(abs_path_for_the_db, current_dir)
-    return jsonify(examPaperGeneration.transform_the_questions_for_the_application_paper1(rel_path))
+    return jsonify(examPaperGeneration.transform_the_questions_for_the_application_paper1(abs_path_for_the_db_file))
 
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
@@ -181,11 +196,9 @@ def retrieve_incorrect_questions():
 
 def get_questions_for_the_paper(listOfIncorrectQuestions):
     # This will take the questions which are answered incorrectly from the DB
-    questionsFromTheDB = examPaperResults.get_list_of_Questions_from_the_DB(
-        "E:/Apps/Sqlite/DB Browser/Databases/DataSetDSGP.db", listOfIncorrectQuestions)
+    questionsFromTheDB = examPaperResults.get_list_of_Questions_from_the_DB(abs_path_for_the_db_file, listOfIncorrectQuestions)
     # Transforming the questions that can be used to the front end
-    transformationOfTheQuestions = examPaperGeneration.transform_the_questions_for_the_application_paper2(
-        "E:/Apps/Sqlite/DB Browser/Databases/DataSetDSGP.db", questionsFromTheDB)
+    transformationOfTheQuestions = examPaperGeneration.transform_the_questions_for_the_application_paper2(abs_path_for_the_csv_file2, abs_path_for_the_modelTrainingFile, abs_path_for_the_csv_file,abs_path_for_the_db_file, questionsFromTheDB)
     return transformationOfTheQuestions
 
 

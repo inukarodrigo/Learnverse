@@ -1,5 +1,7 @@
 import os
 import sqlite3
+
+
 # Retrieving the questions with answers from the DB
 # This function is to retrieve relevant questions from the DB as a list of dict
 def sql_data_to_list_of_dicts(path_to_db, select_query, specific_question):
@@ -16,6 +18,7 @@ def sql_data_to_list_of_dicts(path_to_db, select_query, specific_question):
     finally:
         con.close()
 
+
 # This is to retrieve the questions which student answered incorrectly from the DB
 def get_list_of_Questions_from_the_DB(pathToTheDataBase, listOfIncorrectlyAnsweredQuestions):
     # Same list of questions given in the paper including the correct answer and the related lesson
@@ -29,7 +32,6 @@ def get_list_of_Questions_from_the_DB(pathToTheDataBase, listOfIncorrectlyAnswer
         # else:
         #     modifiedQuestion = str(question)
         questionInTheDB = sql_data_to_list_of_dicts(pathToTheDataBase, Query, question)
-        print(questionInTheDB)
         listOfQuestionsInTheDB.append(questionInTheDB[0])
 
     # Removing unnecessary keys from the list_of_incorrect_questions
