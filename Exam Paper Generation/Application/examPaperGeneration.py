@@ -293,5 +293,5 @@ def transform_the_questions_for_the_application_specialPaper(pathToTheDB, listOf
 # print(sql_data_to_list_of_dicts_1("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db","Select * from Test where RelatedLesson = (?) Order By RANDOM() LIMIT (?)",'introduction to computer',4))
 # print(transform_the_questions_for_the_application_paper2("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
 # print(transform_the_questions_for_the_application_paper1("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
-print(retrieve_50_questions_based_on_requirement("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db", ["introduction to computer", "concept of it"]))
-print(transform_the_questions_for_the_application_specialPaper("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db", ["introduction to computer", "concept of it"]))
+# print(retrieve_50_questions_based_on_requirement("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db", ["introduction to computer", "concept of it"]))
+# print(transform_the_questions_for_the_application_specialPaper("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db", ["introduction to computer", "concept of it"]))
