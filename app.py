@@ -183,6 +183,10 @@ def virtualClassRoom():
 def get_questions_for_paper1():
     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_paper1(abs_path_for_the_db_file))
 
+# @app.route('/get_questions_for_specialPaper', methods=['GET'])
+# def get_questions_for_specialPaper():
+#     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file, addTheListOfLessonsTakenFromTheLizara))
+
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper
