@@ -1,2 +1,2 @@
 # Learnverse
-Web Application system to evaluate and improve students skills based on their performance
+This web application, developed using Flask, is designed to aid students in their advanced level ICT exams. It generates practice exams based on the topics the student struggles with, helping them improve their weaknesses. The application also includes a virtual classroom component, allowing students to communicate and discuss lessons with their teachers. Furthermore, the application can predict a student's potential exam grade. A helpful AI chatbot is available to guide users through the web application and provide additional assistance as needed.
