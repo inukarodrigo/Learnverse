@@ -1,0 +1,144 @@
+version: '3.1'
+intents:
+- affirm
+- ask_apply_online
+- ask_placements
+- bot_challenge
+- courses
+- deny
+- goodbye
+- greet
+- mood_great
+- mood_unhappy
+- my_name_is
+- inform
+- thankyou
+- out_of_scope
+- request_health_form
+
+slots:
+  confirm_exercise:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+          - active_loop: health_form
+            requested_slot:
+  exercise:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: exercise
+  sleep:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: sleep
+
+  stress:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: stress
+  goal:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: goal
+
+entities:
+  - exercise
+  - sleep
+  - stress
+  - goal
+  - name
+
+responses:
+  utter_greet:
+  - text: "Hi! How are you?"
+  - text: "Heyyo. How are you?"
+  - text: "Hii. How is your day going?"
+    buttons:
+      - title: "great"
+        payload: "/mood_great"
+      - title: "super sad"
+        payload: "/mood_unhappy"
+  utter_cheer_up:
+  - text: 'Here is something to cheer you up:'
+    image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great!
+  utter_goodbye:
+  - text: Bye
+  utter_iamabot:
+  - text: I am a bot, powered by Rasa.
+  utter_courses:
+  - text: CU offers
+  utter_my_name_is:
+  - text: Nice to meet you {person}
+  utter_ask_apply_online:
+  - text: apply online
+  utter_ask_placements:
+  - text: placements #  added parts
+  utter_ask_confirm_exercise:
+  - text: Did you study yesterday? Don't sweat it if you didn't run a marathon - walks count!
+
+  utter_ask_exercise:
+  - text: "What kind of exercises, studies did you do 💪 ?"
+
+  utter_ask_sleep:
+  - text: "How much sleep did you get 💤  last night?"
+
+  utter_ask_diet:
+  - text: "Did you stick to a healthy diet 🥦  yesterday?"
+
+  utter_ask_stress:
+  - text: "Is your stress level low, medium, or high 🧘 ?"
+
+  utter_ask_goal:
+  - text: "Setting goals - even small ones - is a great way to focus your day. What do you want to accomplish today 🥇 ?"
+
+  utter_slots_values:
+  - text: "Here's your daily wellness log:\n
+            - studied?: {confirm_exercise}\n
+            - Type of study: {exercise}\n
+            - Sleep: {sleep}\n
+            - Stress level: {stress}\n
+            - Goal: {goal}"
+
+#            - Stuck to a healthy diet?: {diet}\n
+
+
+  utter_no_worries:
+  - text: "No problem ;)"
+
+  utter_ask_continue:
+  - text: "Sorry, I don't quite understand. Do you want to continue?"
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false
+
+forms:
+  health_form:
+    required_slots:
+      - confirm_exercise
+      - exercise
+      - sleep
+      - stress
+      - goal
+
+actions:
+  - utter_greet
+  - utter_slots_values
+#  - utter_submit
+  - utter_ask_continue
+  - utter_no_worries
+  - validate_health_form #custom action - actions.py
