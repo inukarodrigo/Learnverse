@@ -222,8 +222,5 @@ def get_questions_for_the_paper(listOfIncorrectQuestions):
 
 apps.populate(settings.INSTALLED_APPS)
 
-
-
-
 if __name__ == "__main__":
     app.run(debug=True)
