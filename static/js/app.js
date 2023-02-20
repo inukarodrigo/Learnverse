@@ -341,7 +341,7 @@ function goToHome(source) {
 function checkGoToHome(event, paperNo) {
 	if (paperNo===2){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper1'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 01 first.');
@@ -350,7 +350,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===3){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper2'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 02 first.');
@@ -359,7 +359,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===4){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper3'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 03 first.');
@@ -368,7 +368,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===5){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper4'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 04 first.');
@@ -377,7 +377,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===6){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper5'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 05 first.');
@@ -386,7 +386,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===7){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper6'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 06 first.');
@@ -395,7 +395,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===8){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper7'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 07 first.');
@@ -404,7 +404,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===9){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper8'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 08 first.');
@@ -413,7 +413,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===10){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper9'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 09 first.');
@@ -422,7 +422,7 @@ function checkGoToHome(event, paperNo) {
 		}
 	}else if (paperNo===11){
 		if (localStorage.getItem('hasClickedGoToHome')==='paper10'){
-			localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+			//localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
 			return true; // allow the default behavior of the anchor tag
 		}else {
 			alert('Please do the EXAM 10 first.');
