@@ -335,7 +335,21 @@ function goToHome(source) {
       homeBox.classList.remove("hide");
       window.location.replace("/selection");
     });
+  localStorage.setItem('hasClickedGoToHome', true);
 }
+
+function checkGoToHome(event) {
+  if (localStorage.getItem('hasClickedGoToHome')) {
+    localStorage.removeItem('hasClickedGoToHome'); // remove the item from localStorage
+    return true; // allow the default behavior of the anchor tag
+  } else {
+    alert('Please do the paper 01 first.');
+    event.preventDefault(); // prevent the default behavior of the anchor tag
+    return false; // prevent the page from redirecting
+  }
+}
+
+
 
 //### Starting Point ###
 

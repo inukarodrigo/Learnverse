@@ -21,7 +21,7 @@
         <div class="contact-form">
           <form>
             <a href="/paper1" class="buttonfx c-btn">Exam 01</a>
-            <a href="/paper2" class="buttonfx c-btn">Exam 02</a>
+            <a href="/paper2" class="buttonfx c-btn" onclick="return checkGoToHome(event)">Exam 02</a>
             <a href="/paper3" class="buttonfx c-btn">Exam 03</a>
             <a href="/paper4" class="buttonfx c-btn">Exam 04</a>
             <a href="/paper5" class="buttonfx c-btn">Exam 05</a>
@@ -36,5 +36,6 @@
         </div>
       </div>
     </div>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>
