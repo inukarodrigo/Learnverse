@@ -1,7 +1,7 @@
 from django import views
 from django.urls import path
 
-from ..classroom import sender
+import sender
 from .views import detail
 from .views.addFile import addNew
 from .views.detail import get_detail
