@@ -1,7 +1,10 @@
+import json
+
 from flask import Flask, render_template, redirect, jsonify, request
 import importlib.machinery
 import importlib.util
 import os
+import json
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -191,10 +194,16 @@ def botpage():
 def get_questions_for_paper1():
     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_paper1(abs_path_for_the_db_file))
 
-@app.route('/get_questions_for_specialPaper', methods=['GET'])
-def get_questions_for_specialPaper():
-    return jsonify(examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file, addTheListOfLessonsTakenFromTheLizara))
+# @app.route('/get_questions_for_specialPaper', methods=['GET'])
+# def get_questions_for_specialPaper():
+#     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file, addTheListOfLessonsTakenFromTheLizara))
 
+# @app.route('/get_questions_for_specialPaper', methods=['GET'])
+# def get_questions_for_specialPaper():
+#     lessons_need = request.args.getlist('lessons_need')
+#     lessons_need_str = json.loads(lessons_need[0])
+#     print(lessons_need_str)
+#     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file, lessons_need))
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper

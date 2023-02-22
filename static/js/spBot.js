@@ -88,11 +88,28 @@ let papers;
 const lessons = ["introduction to computer","concept of it","data representation","data communication and networking","database management","system analysis and design","web programming","computer operating system","programming fundamentals","fundamental of digital circuits it in business","new trends and future directions of it","internet of things","web development","fundamentals of digital circuits"];
 let lessons_need = [];
 function getLessons(papers_numbers){
-	lessons_need[0] = lessons[parseInt(papers_numbers[0])-1]
-	lessons_need[1] = lessons[parseInt(papers_numbers[1])-1]
+    lessons_need[0] = lessons[parseInt(papers_numbers[0])-1]
+    lessons_need[1] = lessons[parseInt(papers_numbers[1])-1]
 
-	console.log(lessons_need)
+    console.log(lessons_need);
+
+    // Send the lessons_need array to the backend
+	$.ajax({
+		type: 'GET',
+		url: '/get_questions_for_specialPaper',
+		data: {'lessons_need': JSON.stringify(lessons_need)},
+		success: function(response) {
+			console.log(response);
+			// Display a message to the user using the chatbot
+			showBotMessage("Here are some questions for you:");
+		},
+		error: function(error) {
+			console.log(error);
+		}
+	});
+
 }
+
 /**
  * Get input from user and show it on screen on button click.
  */
