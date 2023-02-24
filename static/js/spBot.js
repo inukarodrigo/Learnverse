@@ -59,24 +59,7 @@ function showBotMessage(message, datetime) {
 		text: message,
 		message_side: 'left',
 	});
-
-	// create AJAX request to send data to Flask route
-	$.ajax({
-		url: '/get_questions_for_specialPaper',
-		type: 'GET',
-		data: {
-			lessons: JSON.stringify(lessons_need)
-		},
-		success: function(response) {
-			// show bot message after receiving response from Flask route
-			showBotLessonMessage(response.message);
-		},
-		error: function(error) {
-			console.log(error);
-		}
-	});
 }
-
 function showBotLessonMessage(message, datetime) {
 	renderMessageToScreen({
 		text: message,
@@ -85,58 +68,108 @@ function showBotLessonMessage(message, datetime) {
 	});
 }
 let papers;
-const lessons = ["introduction to computer","concept of it","data representation","data communication and networking","database management","system analysis and design","web programming","computer operating system","programming fundamentals","fundamental of digital circuits it in business","new trends and future directions of it","internet of things","web development","fundamentals of digital circuits"];
-let lessons_need = [];
-function getLessons(papers_numbers){
-    lessons_need[0] = lessons[parseInt(papers_numbers[0])-1]
-    lessons_need[1] = lessons[parseInt(papers_numbers[1])-1]
-
-    console.log(lessons_need);
-
-    // Send the lessons_need array to the backend
-	$.ajax({
-		type: 'GET',
-		url: '/get_questions_for_specialPaper',
-		data: {'lessons_need': JSON.stringify(lessons_need)},
-		success: function(response) {
-			console.log(response);
-			// Display a message to the user using the chatbot
-			showBotMessage("Here are some questions for you:");
-		},
-		error: function(error) {
-			console.log(error);
-		}
-	});
-
-}
-
 /**
  * Get input from user and show it on screen on button click.
  */
 $('#send_button').on('click', function (e) {
-	//Store the user value
-	papers =$('#msg_input').val();
-	let numbers = papers.split(",",2);
-	console.log(numbers)
-	getLessons(numbers);
+  // Store the user input
+  const papers = $('#msg_input').val();
 
-	// get and show message and reset input
-	showUserMessage($('#msg_input').val());
-	$('#msg_input').val('');
+  // Get the lesson text
+  const lessonTextList = getLessonText(papers);
 
-	// show bot message
-	setTimeout(function () {
-		console.log(typeof papers)
-		showBotMessage(lessons_need);
-	}, 300);
+  // Iterate through the lesson text list and show each message
+  lessonTextList.forEach(lessonText => {
+    showBotMessage(lessonText);
+  });
+  showBotMessage("Your paper has been generated successfully and is now available for viewing. You can access it by using the URL provided below.<br> <a href='http://127.0.0.1:5000/specialPaper'>http://127.0.0.1:5000/specialPaper</a>");
+
+  // Convert the lessonTextList array to a comma-separated string
+  const lessonTextString = lessonTextList.join(',');
+
+  // Reset the input
+  $('#msg_input').val('');
+
+  // Make an AJAX request to the get_questions_for_specialPaper endpoint
+  $.ajax({
+    url: '/get_questions_for_specialPaper',
+    method: 'GET',
+    data: {listOfLessons: lessonTextString},
+    success: function(response) {
+      // Handle the response from the server
+      console.log(response);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+      // Handle any errors that occur during the request
+      console.log(textStatus, errorThrown);
+    }
+  });
 });
 
-function generateAListOfLessons(){
-	let listOfLessons = [];
-	if (papers === '1'){
-		listOfLessons.concat('introduction to computer')
-	}
+
+
+
+function getLessonText(papers) {
+  // Split the user input into an array of numbers
+  const numbers = papers.split(/[ ,]+/).map(Number);
+
+  // Create an empty list to store the text
+  const lessonTextList = [];
+
+  // Iterate through the array of numbers and add the respective text to the list
+  numbers.forEach(number => {
+    switch(number) {
+      case 1:
+        lessonTextList.push("introduction to computer");
+        break;
+      case 2:
+        lessonTextList.push("concept of it");
+        break;
+      case 3:
+        lessonTextList.push("data representation");
+        break;
+      case 4:
+        lessonTextList.push("data communication and networking");
+        break;
+      case 5:
+        lessonTextList.push("database management");
+        break;
+      case 6:
+        lessonTextList.push("system analysis and design");
+        break;
+      case 7:
+        lessonTextList.push("web programming");
+        break;
+      case 8:
+        lessonTextList.push("computer operating system");
+        break;
+      case 9:
+        lessonTextList.push("programming fundamentals");
+        break;
+      case 10:
+        lessonTextList.push("fundamental of digital circuits it in business");
+        break;
+      case 11:
+        lessonTextList.push("new trends and future directions of it");
+        break;
+      case 12:
+        lessonTextList.push("internet of things");
+        break;
+      case 13:
+        lessonTextList.push("web development");
+        break;
+      case 14:
+        lessonTextList.push("fundamentals of digital circuits");
+        break;
+      default:
+        break;
+    }
+  });
+
+  // Return the list of text
+  return lessonTextList;
 }
+
 
 /**
  * Returns a random string. Just to specify bot message to the user.

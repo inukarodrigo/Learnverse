@@ -295,3 +295,4 @@ def transform_the_questions_for_the_application_specialPaper(pathToTheDB, listOf
 # print(transform_the_questions_for_the_application_paper1("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db"))
 # print(retrieve_50_questions_based_on_requirement("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db", ["introduction to computer", "concept of it"]))
 # print(transform_the_questions_for_the_application_specialPaper("E:\Apps\Sqlite\DB Browser\Databases\DataSetDSGP.db", ["introduction to computer", "concept of it"]))
+# print(transform_the_questions_for_the_application_specialPaper("E:\Apps\Python\Pycharm Projects\Learnverse\Exam Paper Generation\Model Training\DataSetDSGP.db",["introduction to computer"]))
