@@ -202,12 +202,9 @@ def get_questions_for_paper1():
 @app.route('/get_questions_for_specialPaper', methods=['GET'])
 def get_questions_for_specialPaper():
     listOfLessons = request.args.get('listOfLessons').split(',')
-    print(listOfLessons)
     result = jsonify(
         examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file,
                                                                                      listOfLessons))
-    result_json = result.json
-    print(result_json)
     return result
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the

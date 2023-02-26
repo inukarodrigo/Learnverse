@@ -104,10 +104,9 @@ body {
 }
 
 /* bot message */
-
 .messages .message.left .avatar {
 	float: left;
-	background: url('./static/img/bot.jpg');
+	background: url('../img/bot.jpg');
 }
 
 .messages .message.left .text_wrapper {
