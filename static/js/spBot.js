@@ -55,11 +55,14 @@ function showUserMessage(message, datetime) {
  * Displays the chatbot message on the chat screen. This is the left side message.
  */
 function showBotMessage(message, datetime) {
-	renderMessageToScreen({
-		text: message,
-		message_side: 'left',
-	});
+	setTimeout(function() {
+		renderMessageToScreen({
+			text: message,
+			message_side: 'left',
+		});
+	}, 2000); // delay in milliseconds
 }
+
 function showBotLessonMessage(message, datetime) {
 	renderMessageToScreen({
 		text: message,
