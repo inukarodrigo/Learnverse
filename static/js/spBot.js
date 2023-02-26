@@ -67,7 +67,7 @@ function showBotLessonMessage(message, datetime) {
 		message_side: 'left',
 	});
 }
-let papers;
+window.papersForTheExam = [];
 /**
  * Get input from user and show it on screen on button click.
  */
@@ -77,11 +77,7 @@ $('#send_button').on('click', function (e) {
 
   // Get the lesson text
   const lessonTextList = getLessonText(papers);
-
-  // Iterate through the lesson text list and show each message
-  lessonTextList.forEach(lessonText => {
-    showBotMessage(lessonText);
-  });
+  showUserMessage(papers);
   showBotMessage("Your paper has been generated successfully and is now available for viewing. You can access it by using the URL provided below.<br> <a href='http://127.0.0.1:5000/specialPaper'>http://127.0.0.1:5000/specialPaper</a>");
 
   // Convert the lessonTextList array to a comma-separated string
@@ -91,23 +87,23 @@ $('#send_button').on('click', function (e) {
   $('#msg_input').val('');
 
   // Make an AJAX request to the get_questions_for_specialPaper endpoint
-  $.ajax({
-    url: '/get_questions_for_specialPaper',
-    method: 'GET',
-    data: {listOfLessons: lessonTextString},
-    success: function(response) {
-      // Handle the response from the server
-      console.log(response);
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-      // Handle any errors that occur during the request
-      console.log(textStatus, errorThrown);
-    }
-  });
+    $.ajax({
+        url: '/get_questions_for_specialPaper',
+        method: 'GET',
+        data: {listOfLessons: lessonTextString},
+        success: function(response) {
+            // Handle the response from the server
+            window.papersForTheExam = response;
+            console.log(Object.values(papersForTheExam));
+            localStorage.setItem('listOfQuestions',JSON.stringify(response));
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Handle any errors that occur during the request
+            console.log(textStatus, errorThrown);
+        }
+    });
 });
-
-
-
+window.papersForTheExam = localStorage.getItem('listOfQuestions');
 
 function getLessonText(papers) {
   // Split the user input into an array of numbers
@@ -168,29 +164,6 @@ function getLessonText(papers) {
 
   // Return the list of text
   return lessonTextList;
-}
-
-
-/**
- * Returns a random string. Just to specify bot message to the user.
- */
-function randomstring(length = 20) {
-	let output = '';
-
-	// magic function
-	var randomchar = function () {
-		var n = Math.floor(Math.random() * 62);
-		if (n < 10) return n;
-		if (n < 36) return String.fromCharCode(n + 55);
-		return String.fromCharCode(n + 61);
-	};
-
-	while (output.length < length) output += randomchar();
-	return output;
-}
-
-//A function to display buttons to the user
-function showBotMessageButton(){
 }
 
 /**

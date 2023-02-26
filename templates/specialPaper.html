@@ -11,11 +11,12 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+
 	<div class="home-box custom-box">
 		<h3>INSTRUCTIONS </h3><br>
 		<p>The <b class="sub-title" style="color:#660000">special paper</b>  is designed to assess your understanding of the subject, ranging from basic to advanced concepts, through a variety of questions.</p>
 		<p><b style="color:navy">Parent Topic :    </b><b class="parent-title"style="color:maroon">Advanced Level ICT</b></p>
-		<p><b style="color:green">Total Number of Questions :    </b><b><span style="font-weight:bold" class="total-questions"></span> 50</b></p>
+		<p><b style="color:green">Total Number of Questions :    </b><b><span style="font-weight:bold" class="total-questions"></span></b></p>
 		<p><h4><b><u>Points to be Noted:</u></b></h4></p>
 		<p>1) Each Question will have <b>144 sec</b> of time to answer<p>
 		<p>2) If not answered within the time, it will be marked as <b>un-answered</b><p>
@@ -25,7 +26,9 @@
 		<div class="help-tip">
 			<a><i class="fa fa-lightbulb-o fa-2x" style="color:#000080"></i><span class="ml-1"><b> Un-answered question will not be awarded with Score</b></a>
 		</div>
-		<button type="button" class="btn" onclick="startQuiz()">Start Quiz</button>
+		<button id="startQuizButton" type="button" class="btn" onclick="startQuiz()">Start Quiz</button>
+
+
 	</div>
 	<div class="quiz-box custom-box hide">
 		<div class="timer">
@@ -161,7 +164,8 @@
   const fs = firebase.firestore();
   const db = firebase.firestore();
 </script>
-<script src="{{ url_for('static', filename='js/specialPaper.js') }}"></script>
-<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+<script src="{{ url_for('static', filename='js/spBot.js') }}"></script>
+<script src="{{ url_for('static', filename='js/appForSpecialPaper.js') }}"></script>
+
 </body>
 </html>
