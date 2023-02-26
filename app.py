@@ -1,6 +1,4 @@
 import sys
-
-from VirtualClassroom.src.wsgi import *
 from django.template.backends import django
 from flask import Flask, render_template, redirect, jsonify, request
 import importlib.machinery
@@ -8,11 +6,6 @@ import importlib.util
 import os
 from django.apps import apps
 from django.conf import settings
-
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'VirtualClassroom.src.settings')
-
-
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -224,10 +217,6 @@ def get_questions_for_the_paper(listOfIncorrectQuestions):
         abs_path_for_the_csv_file2, abs_path_for_the_modelTrainingFile, abs_path_for_the_csv_file,
         abs_path_for_the_db_file, questionsFromTheDB)
     return transformationOfTheQuestions
-
-
-
-apps.populate(settings.INSTALLED_APPS)
 
 
 if __name__ == "__main__":
