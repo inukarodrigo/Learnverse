@@ -17,7 +17,8 @@ function init() {
     //--------------------------- Chatbot Frontend -------------------------------
     const chatContainer = document.getElementById("chat-container");
 
-    template = ` <button class='chat-btn'><img src = "./icons/comment.png" class = "icon" ></button>
+    template = ` <button class='chat-btn'><img src = "{{ url_for('static', filename='/img/bot.jpg') }}" class = "icon" ></button>
+ 
 
     <div class='chat-popup'>
     
@@ -26,7 +27,7 @@ function init() {
 				<img src='${botLogoPath}' alt='Chat Bot image' class='bot-img'> 
 			</div>
 			<h3 class='bot-title'>Learnverse Special Papers</h3>
-			<button class = "expand-chat-window" ><img src="./icons/open_fullscreen.png" class="icon" ></button>
+			<button class = "expand-chat-window" ><img src="{{ url_for('static', filename='/img/bot.jpg') }}" class="icon" ></button>
 		</div>
 
 		<div class='chat-area'>
