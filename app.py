@@ -193,9 +193,9 @@ def specialPaperBot():
     return render_template("spBot.html")
 
 
-@app.route("/botpage")
-def botpage():
-    return render_template("botpage.html")
+@app.route("/generalBot")
+def generalBot():
+    return render_template("generalBot.html")
 
 
 # Using the functions of other classes and returning the values in JSON format
