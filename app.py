@@ -184,7 +184,7 @@ def view_test_report():
 
 @app.route("/virtualClassRoom")
 def virtualClassRoom():
-    return render_template("VirtualClassRoom.html")
+    return render_template("index2.html")
 
 
 # Using the functions of other classes and returning the values in JSON format
