@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Java Programming</title>
+    <title>Exam Papers</title>
     <link rel="shortout icon" type="image/x-icon" href="{{ url_for('static', filename='img/java.png')}}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/java.css')}}" />
     <script src='https://kit.fontawesome.com/64d58efce2.js' crossorigin="anonymous"></script>
@@ -21,20 +21,21 @@
         <div class="contact-form">
           <form>
             <a href="/paper1" class="buttonfx c-btn">Exam 01</a>
-            <a href="/paper2" class="buttonfx c-btn">Exam 02</a>
-            <a href="/paper3" class="buttonfx c-btn">Exam 03</a>
-            <a href="/paper4" class="buttonfx c-btn">Exam 04</a>
-            <a href="/paper5" class="buttonfx c-btn">Exam 05</a>
-            <a href="/paper6" class="buttonfx c-btn">Exam 06</a>
-            <a href="/paper7" class="buttonfx c-btn">Exam 07</a>
-            <a href="/paper8" class="buttonfx c-btn">Exam 08</a>
-            <a href="/paper9" class="buttonfx c-btn">Exam 09</a>
-            <a href="/paper10" class="buttonfx c-btn">Exam 10</a>
-            <a href="/paper11" class="buttonfx c-btn">Exam 11</a>
-            <a href="/specialPaper" class="buttonfx c-btn">Special Exam</a>
+            <a href="/paper2" class="buttonfx c-btn" onclick="return checkGoToHome(event, 2)">Exam 02</a>
+            <a href="/paper3" class="buttonfx c-btn" onclick="return checkGoToHome(event, 3)">Exam 03</a>
+            <a href="/paper4" class="buttonfx c-btn" onclick="return checkGoToHome(event, 4)">Exam 04</a>
+            <a href="/paper5" class="buttonfx c-btn" onclick="return checkGoToHome(event, 5)">Exam 05</a>
+            <a href="/paper6" class="buttonfx c-btn" onclick="return checkGoToHome(event, 6)">Exam 06</a>
+            <a href="/paper7" class="buttonfx c-btn" onclick="return checkGoToHome(event, 7)">Exam 07</a>
+            <a href="/paper8" class="buttonfx c-btn" onclick="return checkGoToHome(event, 8)">Exam 08</a>
+            <a href="/paper9" class="buttonfx c-btn" onclick="return checkGoToHome(event, 9)">Exam 09</a>
+            <a href="/paper10" class="buttonfx c-btn" onclick="return checkGoToHome(event, 10)">Exam 10</a>
+            <a href="/paper11" class="buttonfx c-btn" onclick="return checkGoToHome(event, 11)">Exam 11</a>
+            <a href="/spBot" class="buttonfx c-btn">Special Exam</a>
           </form>
         </div>
       </div>
-    </div>
+    </div>Z
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
   </body>
 </html>

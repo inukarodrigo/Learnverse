@@ -1,0 +1,232 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey dude
+    - goodmorning
+    - goodevening
+    - good afternoon
+
+- intent: goodbye
+  examples: |
+    - cu
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: affirm
+  examples: |
+    - yes
+    - y
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+    - sure
+    - ok
+    - why not
+    - ok great
+    - yes I did
+    - yeah, great
+    - pretty good
+    - fine
+    - You bet
+    - I sure did
+    - more or less
+
+- intent: deny
+  examples: |
+    - no
+    - n
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - none
+    - absolutely not
+    - no thanks
+    - didn't do any
+    - no I didn't
+    - could have been better
+    - not great
+    - nope
+
+- intent: mood_great
+  examples: |
+    - perfect
+    - great
+    - amazing
+    - feeling like a king
+    - wonderful
+    - I am feeling very good
+    - I am great
+    - I am amazing
+    - I am going to save the world
+    - super stoked
+    - extremely good
+    - so so perfect
+    - so good
+    - so perfect
+    - i am fine
+
+- intent: mood_unhappy
+  examples: |
+    - my day was horrible
+    - I am sad
+    - I don't feel very well
+    - I am disappointed
+    - super sad
+    - I'm so sad
+    - sad
+    - very sad
+    - unhappy
+    - not good
+    - not very good
+    - extremly sad
+    - so saad
+    - so sad
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: courses
+  examples: |
+    - what different courses are offered
+    - different courses provided by the university
+    - list of different courses
+    - list of different programs
+    - can you help me with the programs Chandigarh university offers
+    - different programs offered by the University
+    - different training programs offered
+
+- intent: my_name_is
+  examples: |
+    - [Shariq Ayaz] (person)
+    - I am [Areesha] (person)
+    - I am [Ashna] (person)
+    - I'm [Aliyah] (person)
+    - I am [Rahil Inzamam] (person)
+    - My name is [Jamal Anjum] (person)
+    - My name is [Nazin] (person)
+    - I am [Sana] (person)
+    - Myself [Ahad] (person)
+    - This side [Samad] (person)
+
+- intent: ask_apply_online
+  examples: |
+    - Can I apply online?
+    - How can I apply online?
+    - Online application process
+    - Online application procedure
+    - What is online application process?
+    - Can you tell me the online application process?
+    - Is it possible to apply online?
+    - Is there any way to apply online?
+    - Can you please help me with the process of online application?
+
+- intent: ask_placements
+  examples: |
+    - placement offers
+    - what are the previous placement offers?
+    - different placement offers offered to students
+    - different companies offers
+    - different placement offered
+    - previous placement offers
+    - what are the different placement offers offered to students
+    - student's placement offers
+    - what are the placement offers
+#added later
+
+- intent: inform
+  examples: |
+    - a full [8 hours](sleep)
+    - only [four hours](sleep)
+    - about [six hours](sleep)
+    - [low](stress)
+    - [medium](stress)
+    - [high](stress)
+    - Yes, I went for a [run](exercise)
+    - uh huh an hour of [yoga](exercise)
+    - yep, I went for a [hike](exercise)
+    - Yes I took the dog for a [walk](exercise)
+    - Yeah, I played [tennis](exercise)
+    - I went [swimming](exercise)
+    - Took a [spin class](exercise)
+    - Did some [boxing](exercise)
+    - [rock climbing](exercise)
+    - played some [basketball](exercise)
+    - played [football](exercise)
+    - I did a [workout](exercise) video
+    - I want to get up early and go for a run
+    - Be more patient with my family
+    - Try to be a better friend
+    - Make sure to eat better tomorrow
+    - eat less junk food
+    - eat better
+    - spend less time on my phone
+    - don't procrastinate
+    - Go to bed earlier
+    - Don't stay up so late
+    - try to make some time to meditate
+    - i ate pretty healthy overall
+    - lots of fruits and vegetables
+    - I ate a salad
+    - too many snacks
+    - too many sweets
+    - too much junk food
+    - a lot of carbs
+    - too much fatty food
+    - Get more exercise
+
+- intent: out_of_scope
+  examples: |
+    - that's not what I want to do
+    - wait stop
+    - you're no help
+    - this is no help at all
+    - how old are you
+    - I want to order a pizza
+    - tell me the weather
+    - this isn't working
+    - I already told you that
+    - don't like that
+    - I don't want to tell you that
+    - none of your business
+    - that's not right
+    - stop asking
+    - nevermind
+    - I want to do something else
+    - I changed my mind
+
+- intent: thankyou
+  examples: |
+    - okay great thanks
+    - thank you
+    - sure thanks
+    - thanks bye
+    - thanks
+
+- intent: request_health_form
+  examples: |
+    - It is time for daily health form
+    - Shall I tell you about my study goals?

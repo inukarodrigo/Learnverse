@@ -4,8 +4,9 @@ from flask import Flask, render_template, redirect, jsonify, request
 import importlib.machinery
 import importlib.util
 import os
-from django.apps import apps
-from django.conf import settings
+import json
+
+
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -187,15 +188,31 @@ def virtualClassRoom():
     return render_template("index2.html")
 
 
+@app.route("/spBot", methods=['GET'])
+def specialPaperBot():
+    return render_template("spBot.html")
+
+
+@app.route("/botpage")
+def botpage():
+    return render_template("botpage.html")
+
+
 # Using the functions of other classes and returning the values in JSON format
 @app.route('/get_questions_for_paper1', methods=['GET'])
 def get_questions_for_paper1():
     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_paper1(abs_path_for_the_db_file))
 
 
-# @app.route('/get_questions_for_specialPaper', methods=['GET'])
-# def get_questions_for_specialPaper():
-#     return jsonify(examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file, addTheListOfLessonsTakenFromTheLizara))
+@app.route('/get_questions_for_specialPaper', methods=['GET'])
+def get_questions_for_specialPaper():
+    listOfLessons = request.args.get('listOfLessons').split(',')
+    result = jsonify(
+        examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file,
+                                                                                     listOfLessons))
+    return result
+
+
 
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
