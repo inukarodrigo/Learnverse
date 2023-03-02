@@ -1,0 +1,73 @@
+{% extends 'class/base.html' %}
+{% block class_link %}
+<div class="navbar-nav ml-auto">
+    <a class="nav-item nav-link active" href="{% url 'single' room.id %}"><i class="fas fa-bars"></i>  Stream<span class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" href="{% url 'detail' room.id %}"><i class="fas fa-file-signature"></i> Files</a>
+    <a class="nav-item nav-link" href="{% url 'people' room.id %}"> <i class="fas fa-users"></i> People</a>
+    <a class="nav-item nav-link" href="{% url 'session' room.id %}"> <i class="fas fa-video"></i> Session</a>
+    {% if user.is_authenticated %}
+    {% if user.is_teacher %}
+        <a class="nav-item nav-link" href="#"> <i class="fas fa-database"></i> Progress</a>
+
+    {% endif %}
+    {% endif %}
+    {% if user.is_student %}
+        <a class="nav-item nav-link" href=""  data-toggle="modal" data-target="#exampleModal">Leave Class <i class="fas fa-sign-out-alt"></i> </a>
+    {% endif %}
+</div>
+{% endblock %}
+{% block css %}
+.box{
+    box-shadow: 1px 1px 5px 1px #a9a7a7;
+    border-radius:10px;
+    text-align:center;
+}
+.box img{
+    width:100%;
+    border-radius:5%;
+
+}
+{% endblock %}
+
+{% block content %}
+
+    <div style="margin-top: 35px; margin-bottom: 30px">
+        <ul class="nav nav-pills" style="margin-right: 10px;">
+        <li role="presentation" class="active" style="padding: 10px;"><a href="{% url 'detail' room.id %}">View All</a></li>
+        {% if user.is_teacher %}
+            <li role="presentation" style="padding: 10px;"><a href="{% url 'addNew' room.id %}">Add New Material</a></li>
+        {% endif %}
+    </ul>
+    </div>
+
+    <div class="col-6">
+        <table class="table">
+                    <thead>
+                      <tr>
+                        <th >S/N</th>
+                        <th >Name</th>
+                        <th >File Link</th>
+                        <th ></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for d in data %}
+                      <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th>{{d.file_name}}</th>
+                        <th><a  href="{{d.class_files.url}}">{{d.class_files}}</a></th>
+
+
+
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+
+    </div>
+
+
+
+
+
+{% endblock %}
