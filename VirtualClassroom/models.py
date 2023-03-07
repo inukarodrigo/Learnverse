@@ -1,5 +1,7 @@
 import sqlite3
+import string
 import uuid
+import random
 
 from flask import Flask
 from sqlalchemy.testing import db
@@ -23,15 +25,31 @@ class User:
         self.is_superuser = is_superuser
         self.is_staff = is_staff
         self.id = id
-
+def get_random_string():
+    # choose from all lowercase letter
+    letters = string.ascii_lowercase
+    result_str = ''.join(random.choice(letters) for i in range(7))
+    return result_str
 class Classroom:
-    def __init__(self, name, unit, code, details, cover):
+
+    def __init__(self, name, unit, code, details):
         self.name = name
         self.unit = unit
         self.code = code
         self.details = details
-        self.cover = cover
         self.id = id
+def init_classroom(Classroom):
+    conn = sqlite3.connect(app.config['DATABASE'])
+    id = str(uuid.uuid4())
+    user= current_user()
+    teacher= get_teacher_id(user)
+    teacher_user_id= teacher[0]
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO classroom_classroom (id, name, unit, code, details, teacher_id) VALUES (?, ?, ?, ?, ?, ?)",
+        (id, Classroom.name, Classroom.unit, Classroom.code, Classroom.details, teacher_user_id))
+    conn.commit()
+    cur.close()
 def register_user(user):
     conn = sqlite3.connect(app.config['DATABASE'])
     cur = conn.cursor()
@@ -52,7 +70,37 @@ def register_teacher(username):
         (id, teacher_id, username))
     conn.commit()
     cur.close()
+def Log_active(usernames):
+    conn = sqlite3.connect(app.config['DATABASE'])
+    u_name = usernames
+    cur = conn.cursor()
+    cur.execute("UPDATE profiles_user SET is_active = ? WHERE username = ?", (True, u_name))
 
+    conn.commit()
+    cur.close()
+def Log_deactive():
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cur = conn.cursor()
+    cur.execute("UPDATE profiles_user SET is_active = ? WHERE is_active = ?", (False, True))
+
+    conn.commit()
+    cur.close()
+
+def current_user():
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM profiles_user WHERE is_active=?", (True,))
+    user = cur.fetchone()
+    cur.close()
+    return user
+def get_teacher_id(user):
+    teacher_user= user[0]
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM profiles_teacher WHERE user_id=?", (teacher_user,))
+    teacher = cur.fetchone()
+    cur.close()
+    return teacher
 def register_student(username):
     user=get_user_by_username(username)
     student_id=user[0]

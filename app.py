@@ -215,6 +215,10 @@ def get_questions_for_specialPaper():
         examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file,
                                                                                      listOfLessons))
     return result
+@app.route('/vc_logout')
+def vc_logout():
+    models.Log_deactive()
+    return render_template('register/login.html')
 
 @app.route('/vc_login', methods=['GET', 'POST'])
 def vc_login():
@@ -224,10 +228,19 @@ def vc_login():
 
         user = models.get_user_by_username(username)
         if user and check_password_hash(user[10], password):
+            models.Log_active(username)
             # user is authenticated
             if models.check_type(username):
                 return render_template('dashboard/student/student.html')
-            return render_template('dashboard/teacher/teacher.html')
+            user = models.current_user()
+            teacher = models.get_teacher_id(user)
+            teacher_user_id = teacher[0]
+            conn = sqlite3.connect(app.config['DATABASE'])
+            c = conn.cursor()
+            c.execute("SELECT * FROM classroom_classroom WHERE teacher_id=?", (teacher_user_id,))
+            rows = c.fetchall()
+            return render_template('dashboard/teacher/teacher.html', rows=rows)
+
         else:
             # invalid credentials
             return "Invalid username or password."
@@ -280,6 +293,39 @@ def vc_signup_as_student():
     else:
         return render_template('register/signup_student.html')
 
+def teachers():
+    user = models.current_user()
+    teacher = models.get_teacher_id(user)
+    teacher_user_id = teacher[0]
+    conn = sqlite3.connect(app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute("SELECT * FROM classroom_classroom WHERE teacher_id=?",(teacher_user_id,))
+    rows = c.fetchall()
+    return render_template('dashboard/teacher/teacher.html', rows=rows)
+@app.route('/view_class/<id>')
+def view_class():
+
+    return render_template('class/single.html')
+@app.route('/create_class', methods=['GET', 'POST'])
+def create_class():
+    if request.method == 'POST':
+        name = request.form['name']
+        unit = request.form['unit']
+        details = request.form['detail']
+        code = models.get_random_string()
+        Vclass=models.Classroom(name, unit, code, details)
+        models.init_classroom(Vclass)
+
+        user = models.current_user()
+        teacher = models.get_teacher_id(user)
+        teacher_user_id = teacher[0]
+        conn = sqlite3.connect(app.config['DATABASE'])
+        c = conn.cursor()
+        c.execute("SELECT * FROM classroom_classroom WHERE teacher_id=?", (teacher_user_id,))
+        rows = c.fetchall()
+        return render_template('dashboard/teacher/teacher.html', rows=rows)
+
+    return render_template('class/create_class.html')
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper
 @app.route('/retrieve_incorrect_questions', methods=['POST'])
