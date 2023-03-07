@@ -4,7 +4,6 @@ intents:
 - ask_apply_online
 - ask_placements
 - bot_challenge
-- courses
 - deny
 - goodbye
 - greet
@@ -15,6 +14,8 @@ intents:
 - thankyou
 - out_of_scope
 - request_health_form
+- ask_special_paper
+- ask_virtual_classroom
 
 slots:
   confirm_exercise:
@@ -78,19 +79,21 @@ responses:
   utter_goodbye:
   - text: Bye
   utter_iamabot:
-  - text: I am a bot, powered by Rasa.
-  utter_courses:
-  - text: CU offers
+  - text: I am Learny. I am a bot, powered by Rasa to help you with your learning journey.
+
   utter_my_name_is:
-  - text: Nice to meet you {person}
-  utter_ask_apply_online:
-  - text: apply online
-  utter_ask_placements:
-  - text: placements #  added parts
+  - text: Nice to meet you
+
   utter_ask_confirm_exercise:
   - text: Did you study yesterday? Don't sweat it if you didn't run a marathon - walks count!
 
-  utter_ask_exercise:
+  utter_say_virtual_classroom:
+  - text: In the virtual classroom you have a space to interact with the teacher and make your learning journey more easy. Please visit to our main menu and log into the virtual classroom to discover more!!
+
+  utter_say_special_paper:
+  - text: There are plenty of papers to practice what you learnt this far in out paper collection. Special paper is a paper made with questions related to only one or two lessons which are requested by the student. You can visit the special paper bot and send the relevant lesson numbers(one or two maximum) to get the special paper. This helps you to strengthen the knowledge in the specific subject area.
+
+  utter_say_exercise:
   - text: "What kind of exercises, studies did you do 💪 ?"
 
   utter_ask_sleep:
