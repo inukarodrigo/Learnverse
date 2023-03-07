@@ -1,12 +1,13 @@
 import sys
-from django.template.backends import django
-from flask import Flask, render_template, redirect, jsonify, request
+from flask import Flask, render_template, redirect, jsonify, request, url_for, flash
 import importlib.machinery
 import importlib.util
 import os
+import sqlite3
+from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
-
+from VirtualClassroom import models
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -47,7 +48,10 @@ file_path_for_the_csvFile2 = os.path.join(current_dir, 'Exam Paper Generation', 
                                           'table_to_train_the_model.csv')
 abs_path_for_the_csv_file2 = os.path.abspath(file_path_for_the_csvFile2)
 
+
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mysecretkey'
+app.config['DATABASE'] = 'VirtualClassroom/db.sqlite3'
 
 
 # @app.route("/")
@@ -212,8 +216,69 @@ def get_questions_for_specialPaper():
                                                                                      listOfLessons))
     return result
 
+@app.route('/vc_login', methods=['GET', 'POST'])
+def vc_login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
 
+        user = models.get_user_by_username(username)
+        if user and check_password_hash(user[10], password):
+            # user is authenticated
+            if models.check_type(username):
+                return render_template('dashboard/student/student.html')
+            return render_template('dashboard/teacher/teacher.html')
+        else:
+            # invalid credentials
+            return "Invalid username or password."
+    else:
+        return render_template('register/login.html')
 
+@app.route('/vc_signup_as_teacher', methods=['GET', 'POST'])
+def vc_signup_as_teacher():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        is_teacher = True
+        is_student = False
+        is_active = False
+        is_superuser = False
+        is_staff = False
+        if password == confirm_password:
+            user = models.User(username, email, password,confirm_password, is_student, is_teacher, is_active, is_superuser, is_staff)
+            models.register_user(user)
+            models.register_teacher(username)
+            return render_template('register/login.html')
+        else:
+            return "Passwords do not match."
+    else:
+        return render_template('register/signup_teacher.html')
+
+@app.route('/vc_signup_as_student', methods=['GET', 'POST'])
+def vc_signup_as_student():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        is_teacher = False
+        is_student = True
+        is_active = False
+        is_superuser = False
+        is_staff = False
+        if password == confirm_password:
+            user = models.User(username, email, password, confirm_password, is_student, is_teacher, is_active,
+                               is_superuser, is_staff)
+            models.register_user(user)
+            models.register_student(username)
+            return render_template('register/login.html')
+        else:
+            flash('Password Incorrect')
+            return render_template('register/signup_student.html')
+    else:
+        return render_template('register/signup_student.html')
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper
@@ -234,6 +299,7 @@ def get_questions_for_the_paper(listOfIncorrectQuestions):
         abs_path_for_the_csv_file2, abs_path_for_the_modelTrainingFile, abs_path_for_the_csv_file,
         abs_path_for_the_db_file, questionsFromTheDB)
     return transformationOfTheQuestions
+
 
 
 if __name__ == "__main__":
