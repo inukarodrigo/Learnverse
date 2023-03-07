@@ -43,27 +43,20 @@ stories:
   - intent: deny
   - action: utter_goodbye
 
-- story: courses path
-  steps:
-  - intent: courses
-  - action: utter_courses
-
 - story: my_name_is path
   steps:
   - intent: my_name_is
   - action: utter_my_name_is
 
-- story: ask_apply_online path
+- story: ask_virtual_classroom path
   steps:
-  - intent: ask_apply_online
-  - action: utter_ask_apply_online
+  - intent: ask_virtual_classroom
+  - action: utter_say_virtual_classroom
 
-- story: ask_placements path
+- story: ask_special_paper path
   steps:
-  - intent: ask_placements
-  - action: utter_ask_placements
-
-
+  - intent: ask_special_paper
+  - action: utter_say_special_paper
 
 
 #[//]: # (stories from college inquiry bot ends here)
