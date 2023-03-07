@@ -1,11 +1,10 @@
 import sys
-from django.template.backends import django
+# from django.template.backends import django
 from flask import Flask, render_template, redirect, jsonify, request
 import importlib.machinery
 import importlib.util
 import os
 import json
-
 
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
