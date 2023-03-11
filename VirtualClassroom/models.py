@@ -42,7 +42,7 @@ def init_classroom(Classroom):
     conn = sqlite3.connect(app.config['DATABASE'])
     id = str(uuid.uuid4())
     user= current_user()
-    teacher= get_teacher_id(user)
+    teacher= get_id(user)
     teacher_user_id= teacher[0]
     cur = conn.cursor()
     cur.execute(
@@ -85,7 +85,34 @@ def Log_deactive():
 
     conn.commit()
     cur.close()
+def check_code(code,user):
+    user_id = user[0]
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cur = conn.cursor()
+    cur.execute("SELECT * FROM profiles_student WHERE user_id=?", (user_id,))
+    st_user=cur.fetchone()
+    st_user_id=st_user[0]
 
+    try:
+
+        cur.execute("SELECT * FROM classroom_classroom WHERE code=?", (code,))
+        classroom = cur.fetchone()
+        room_id = classroom[2]
+        cur.execute('SELECT EXISTS(SELECT 1 FROM classroom_membership WHERE room_id =? AND student_id=?)',(room_id,st_user_id))
+        result = cur.fetchone()[0]
+        if result:
+            cur.close()
+            return True
+        else:
+            cur.execute(
+                "INSERT INTO classroom_membership (is_join, room_id, student_id) VALUES (?, ?, ?)",
+                (True, room_id, st_user_id))
+            conn.commit()
+    except:
+        print("code invalid")
+        return False
+    cur.close()
+    return True
 def current_user():
     conn = sqlite3.connect(app.config['DATABASE'])
     cur = conn.cursor()
@@ -93,14 +120,20 @@ def current_user():
     user = cur.fetchone()
     cur.close()
     return user
-def get_teacher_id(user):
-    teacher_user= user[0]
+def get_id(user):
+    User_= user[0]
     conn = sqlite3.connect(app.config['DATABASE'])
     cur = conn.cursor()
-    cur.execute("SELECT * FROM profiles_teacher WHERE user_id=?", (teacher_user,))
-    teacher = cur.fetchone()
-    cur.close()
-    return teacher
+    if user[6]:
+        cur.execute("SELECT * FROM profiles_teacher WHERE user_id=?", (User_,))
+        teacher = cur.fetchone()
+        cur.close()
+        return teacher
+    else:
+        cur.execute("SELECT * FROM profiles_student WHERE user_id=?", (User_,))
+        student = cur.fetchone()
+        cur.close()
+        return student
 def register_student(username):
     user=get_user_by_username(username)
     student_id=user[0]
@@ -129,5 +162,20 @@ def check_type(username):
     result=user[5]
     cur.close()
     return result
-
+def create_post(user_id,post,room_id,username):
+    id = str(uuid.uuid4())
+    conn = sqlite3.connect(app.config['DATABASE'])
+    cur = conn.cursor()
+    cur.execute(
+        "INSERT INTO classroom_roomstream (id, post, is_featured, room_id, user_id, user_name) VALUES (?, ?, ?, ?, ?, ?)",
+        (id, post, False, room_id, user_id, username))
+    conn.commit()
+    cur.close()
+def view_posts(room_id):
+    conn = sqlite3.connect(app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute("SELECT * FROM classroom_roomstream WHERE room_id=?", (room_id,))
+    posts = c.fetchall()
+    c.close()
+    return posts
 
