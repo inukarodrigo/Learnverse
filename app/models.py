@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField
+from django.forms import Field
 
 
 class BaseModel(models.Model):
@@ -15,3 +16,5 @@ class BaseModel(models.Model):
 
 class Hit(BaseModel):
     data = JSONField(null=True)
+
+
