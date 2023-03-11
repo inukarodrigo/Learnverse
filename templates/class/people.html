@@ -1,42 +1,88 @@
-{% extends 'class/base.html' %}
-{% block class_link %}
-<div class="navbar-nav ml-auto">
-    <a class="nav-item nav-link active" href="{% url 'single' room.id %}"><i class="fas fa-bars"></i>  Stream<span class="sr-only">(current)</span></a>
-    <a class="nav-item nav-link" href="{% url 'detail' room.id %}"><i class="fas fa-file-signature"></i> Files</a>
-    <a class="nav-item nav-link" href="{% url 'people' room.id %}"> <i class="fas fa-users"></i> People</a>
-    <a class="nav-item nav-link" href="{% url 'session' room.id %}"> <i class="fas fa-video"></i> Session</a>
-    {% if user.is_authenticated %}
-    {% if user.is_teacher %}
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
+    <title>classroom</title>
+    <style>
+
+        .navbar-custom {
+            background-color: lightgreen;
+        }
+        .main_box{
+            border-radius:20px;
+            display: block;
+            height: 100%;
+            left: 0;
+
+            top: 0;
+            width: 100%;
+
+            background-image: radial-gradient( 25rem 18.75rem ellipse at bottom right,#4285f4, transparent );
+            overflow:hidden;
+            padding:30px 100px;
+            position:relative;
+
+
+
+        }
+        .main_box h2{
+          z-index:3;
+        }
+
+        .box{
+          border-radius: 20px;
+            padding: 10px 10px;
+            box-shadow: 1px 1px 2px 1px #dcd5d5;
+        }
+        .container_scroll {
+
+            height: 400px;
+            overflow: scroll; /* Set the overflow property to "scroll" */
+            overflow-x: hidden;
+        }
+
+    </style>
+
+
+</head>
+<body  >
+
+
+<div class=" navbar navbar-expand-md navbar-dark " style="margin-left: 300px">
+    {% for r in row %}
+    <a class="nav-item nav-link active" href="/view_class/{{ r[2] }}"><i class="fas fa-bars"></i>  Stream<span class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" href="/detail/{{ r[2] }}"><i class="fas fa-file-signature"></i> Files</a>
+    {% if user[6] %}
         <a class="nav-item nav-link" href="#"> <i class="fas fa-database"></i> Progress</a>
 
     {% endif %}
-    {% endif %}
-    {% if user.is_student %}
+    <a class="nav-item nav-link" href="/vc_logout"> <i class="fas fa-power-off"></i> Logout</a>
+
+    {% if user[5] %}
         <a class="nav-item nav-link" href=""  data-toggle="modal" data-target="#exampleModal">Leave Class <i class="fas fa-sign-out-alt"></i> </a>
     {% endif %}
+    {% endfor %}
 </div>
-{% endblock %}
-{% block css %}
-.box{
-    box-shadow: 1px 1px 5px 1px #a9a7a7;
-    border-radius:10px;
-    text-align:center;
-}
-.box img{
-    width:100%;
-    border-radius:5%;
-
-}
-{% endblock %}
-
-{% block content %}
 
     <div class="row mt-3">
-        {% for s in s%}
+        {% for name in names%}
+        {% for n in names %}
+        {% for s in n %}
         <div class="col-2 box m-2 p-3">
-            <img src="{{ s.photo.url  }}" alt="">
-            <h4 class="text">{{ s.name }}</h4>
+            <h4 class="text">{{ s[1] }}</h4>
         </div>
         {% endfor %}
+        {% endfor %}
+        {% endfor %}
     </div>
-{% endblock %}
+</body>
+</html>

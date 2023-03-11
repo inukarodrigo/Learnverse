@@ -1,5 +1,5 @@
 import sys
-from flask import Flask, render_template, redirect, jsonify, request, url_for, flash
+from flask import Flask, render_template, redirect, jsonify, request, url_for, flash, send_file
 import importlib.machinery
 import importlib.util
 import os
@@ -7,7 +7,12 @@ import sqlite3
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
 
+from werkzeug.utils import secure_filename
+
 from VirtualClassroom import models
+
+directory = 'VirtualClassroom/shared_files'
+
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -401,6 +406,68 @@ def create_class():
 
     return render_template('class/create_class.html')
 
+@app.route('/detail/<r_id>')
+def detail(r_id):
+    room_id=r_id
+    print(room_id,"this 1")
+    user = models.current_user()
+    teacher= models.get_id(user)
+    teacher_id = teacher[0]
+    conn = sqlite3.connect(app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute("SELECT * FROM classroom_classfiles WHERE room_id=?", (room_id,))
+    data = c.fetchall()
+    c.execute("SELECT * FROM classroom_classroom WHERE id=?", (room_id,))
+    row = c.fetchall()
+    c.close()
+    return render_template('class/detail.html', data=data, room_id=room_id, user=user, row=row)
+
+@app.route('/upload_file/<r_id>', methods=['GET', 'POST'])
+def upload_file(r_id):
+    file = request.files['file']
+    file_name= request.form['data_name']
+    user = models.current_user()
+    teacher= models.get_id(user)
+    teacher_id= teacher[0]
+    if file:
+
+        filename = secure_filename(file.filename)
+        models.db_upload(teacher_id, r_id, filename, file_name)
+        path = os.path.join(directory, filename)
+        file.save(path)
+        return redirect(url_for('detail', r_id=r_id))
+    else:
+        return 'No file selected'
+
+@app.route('/download_file/<filename>')
+def download_file(filename):
+    print(filename)
+    path = os.path.join(directory, filename)
+    return send_file(path, as_attachment=True)
+
+@app.route('/people/<id>')
+def people(id):
+    room_id=id
+    user = models.current_user()
+    teacher = models.get_id(user)
+    teacher_id = teacher[0]
+    conn = sqlite3.connect(app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute("SELECT * FROM classroom_membership WHERE room_id=?", (room_id,))
+    students=c.fetchall()
+    names= []
+    for s in students:
+        s_id= s[3]
+        c.execute("SELECT * FROM profiles_student WHERE id=?", (s_id,))
+        temp = c.fetchall()
+        names.append(temp)
+    print(names)
+    c.execute("SELECT * FROM classroom_classroom WHERE id=?", (room_id,))
+    row = c.fetchall()
+    c.close()
+    return render_template('class/people.html', room_id=room_id, user=user, row=row, names=names)
+
+    return
 
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper

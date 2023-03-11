@@ -179,3 +179,13 @@ def view_posts(room_id):
     c.close()
     return posts
 
+def db_upload(t_id,r_id, file, file_name):
+    id = str(uuid.uuid4())
+
+    conn = sqlite3.connect(app.config['DATABASE'])
+    c = conn.cursor()
+    c.execute(
+        "INSERT INTO classroom_classfiles (id, class_files, room_id, teacher_id, file_name) VALUES (?, ?, ?, ?, ?)",
+        (id, file, r_id, t_id, file_name))
+    conn.commit()
+    c.close()
