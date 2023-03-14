@@ -16,6 +16,11 @@
         .navbar-custom {
             background-color: lightgreen;
         }
+        td {
+            width: 150px;
+            padding: 8px;
+            vertical-align: middle;
+        }
 
     </style>
     <title>Virtual Class</title>
@@ -26,15 +31,26 @@
             <h2> Sign Up as A Student</h2>
             <br>
             <form action="{{ url_for('vc_signup_as_student') }}" method="post">
-                  <label for="username">Username:</label>
-                  <input type="text" id="username" name="username"><br><br>
-                  <label for="email">Email:</label>
-                  <input type="email" id="email" name="email"><br><br>
-                  <label for="password">Password:</label>
-                  <input type="password" id="password" name="password"><br><br>
-                  <label for="confirm_password">Confirm Password:</label>
-                  <input type="password" id="confirm_password" name="confirm_password"><br><br>
-                  <input type="submit" value="Signup">
+                <table>
+                    <tr>
+                        <td><label for="username">Username:</label></td>
+                        <td><input type="text" id="username" name="username" required></td><br>
+                    </tr>
+                    <tr>
+                      <td><label for="email">Email:</label></td>
+                      <td><input type="email" id="email" name="email" required><br></td>
+                    </tr>
+                    <tr>
+                      <td><label for="password">Password:</label></td>
+                      <td><input type="password" id="password" name="password" required></td><br>
+                    </tr>
+                    <tr>
+                      <td><label for="confirm_password">Confirm Password:</label></td>
+                        <td><input type="password" id="confirm_password" name="confirm_password" required><br><br></td>
+                    </tr>
+                </table>
+                <hr>
+                  <input type="submit" value="Signup" class="btn btn-primary">
             </form>
             {% with messages = get_flashed_messages() %}
                   {% if messages %}

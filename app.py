@@ -398,7 +398,7 @@ def create_class():
         models.init_classroom(Vclass)
 
         user = models.current_user()
-        teacher = models.get_teacher_id(user)
+        teacher = models.get_id(user)
         teacher_user_id = teacher[0]
         conn = sqlite3.connect(app.config['DATABASE'])
         c = conn.cursor()
