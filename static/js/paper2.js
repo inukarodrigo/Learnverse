@@ -14,6 +14,7 @@ fetch('/retrieve_incorrect_questions', {
   .then(response => response.json())
   .then(data => {
     quiz = data.listOfQuestions;
+    quiz = quiz.slice(0,10); // Reducing the number of questions to 10 for the demonstration purposes
   });
 
 /*
