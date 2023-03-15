@@ -367,6 +367,7 @@ def view_class(id):
 
 @app.route('/join_class', methods=['GET', 'POST'])
 def join_class():
+    global room_id
     if request.method == 'POST':
         code = request.form['code']
         user = models.current_user()
@@ -377,7 +378,8 @@ def join_class():
             cur.execute("SELECT * FROM classroom_classroom WHERE code=?", (code,))
             row = cur.fetchall()
             cur.close()
-            room_id = row[2]
+            for r in row:
+                room_id = r[2]
             posts = models.view_posts(room_id)
             return render_template('class/single.html', user=user, row=row, posts=posts)
         else:
@@ -396,7 +398,7 @@ def create_class():
         models.init_classroom(Vclass)
 
         user = models.current_user()
-        teacher = models.get_teacher_id(user)
+        teacher = models.get_id(user)
         teacher_user_id = teacher[0]
         conn = sqlite3.connect(app.config['DATABASE'])
         c = conn.cursor()
