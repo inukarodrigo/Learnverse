@@ -43,10 +43,15 @@ auth.onAuthStateChanged(user => {
                 cell5.innerHTML = doc.data().correctAnswers;    
                 cell6.innerHTML = doc.data().totalTimeTaken;
 
+
+
             });
+
+
         })          
         .then(() => {
             console.log('Summary Listed below');
+
         }).catch(err => {
             console.log(err.message);
         })
