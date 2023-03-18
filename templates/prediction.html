@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exam Result Prediction</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/testSummaryStyling.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+		h1 {
+			margin-top: 50px;
+			font-size: 36px;
+		}
+		input {
+			font-size: 18px;
+			padding: 10px;
+			margin: 10px;
+		}
+		button {
+			font-size: 18px;
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+		button:hover {
+			background-color: #3e8e41;
+		}
+		#result {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Exam Result Prediction</h1>
+	<label> (press to Generate): </label>
+	<button onclick="addScore()">Generate Prediction</button>
+	<div id="scores"></div>
+	<div id="avg_score"></div>
+	<div id="result"></div>
+
+
+
+
+
+
+     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
+    </script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+
+
+
+    <script>
+      var firebaseConfig =
+      {
+        apiKey: "AIzaSyBlzxYeO9xvN3-UyFlLPhTGM7M5i_8gjT8",
+      authDomain: "quiz-corner-5afa2.firebaseapp.com",
+      projectId: "quiz-corner-5afa2",
+      storageBucket: "quiz-corner-5afa2.appspot.com",
+      messagingSenderId: "248412314293",
+      appId: "1:248412314293:web:b871a5028b610d34db3cfc",
+      measurementId: "G-TPLYH7LM42"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const fs = firebase.firestore();
+      const db = firebase.firestore();
+    </script>
+	<script>
+		let exam_scores = [];
+        auth.onAuthStateChanged(user => {
+        // ... retrieve data from Firestore ...
+        if (user){
+            fs.collection(user.uid).get().then((snapshot) => {
+                snapshot.forEach(doc => {
+                    // ... insert rows and cells into the HTML table ...
+
+                    // get the percentage value from the HTML table
+                    let percentage = doc.data().percentage;
+
+                    // add the percentage value to the result array
+                    exam_scores.push(percentage);
+                    // log the length of the result array
+                    console.log("Number of percentage values:", exam_scores.length);
+
+                    // log the result array to the console
+                    console.log("Percentage values:", exam_scores);
+                });
+            })
+            addScore()
+
+        }
+
+
+        });
+
+		function addScore() {
+			//var score = document.getElementById("score").value;
+			if (exam_scores == "") {
+				return;
+			}
+			//exam_scores.push(parseFloat(score));
+			//document.getElementById("scores").innerHTML = "Scores: " + exam_scores.join(", ");
+			//document.getElementById("score").value = "";
+			calculateAverage();
+		}
+		function calculateAverage() {
+			var sum = 0;
+			for (var i = 0; i < exam_scores.length; i++) {
+				sum += exam_scores[i];
+			}
+			if (exam_scores.length == 0) {
+				var avg_score = 0;
+			} else {
+				var avg_score = sum / exam_scores.length;
+			}
+			document.getElementById("avg_score").innerHTML = "Average Score: " + avg_score.toFixed(2);
+            console.log(avg_score)
+			predictResult(avg_score);
+		}
+		function predictResult(avg_score) {
+			if (avg_score >= 90) {
+				var result = "A+";
+			} else if (avg_score >= 75) {
+				var result = "A";
+			} else if (avg_score >= 65) {
+				var result = "B";
+			} else if (avg_score >= 55) {
+				var result = "C";
+			} else if (avg_score >= 40) {
+				var result = "D";
+			} else if (avg_score >= 35) {
+				var result = "E";
+			} else {
+				var result = "F";
+			}
+            console.log('wat')
+			document.getElementById("result").innerHTML = "Predicted Result: " + result;
+
+		}
+	</script>
+<div>
+
+
+
+</div>
+
+</body>
+</html>
