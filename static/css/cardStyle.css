@@ -280,14 +280,13 @@ body
   margin-top: 2%;
   margin-left: 20%;
 }
-.testbox8
-{
-  width: 380px; 
-  height: 70px; 
+.testbox8 {
+  width: 380px;
+  height: 70px;
   margin-left: -270%;
   border-radius: 15px;
   text-align: center;
-  box-shadow: 5px 10px 15px rgba(0,0,0,.31);
-  background-color: white; 
+  box-shadow: 5px 10px 15px rgba(0, 0, 0, .31);
+  background-color: white;
   border: solid 1px #cbc9c9;
 }
