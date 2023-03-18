@@ -14,8 +14,6 @@ const loggedUser = document.querySelector(".loggedUser");
 
 auth.onAuthStateChanged(user => {
     var table = document.getElementById("myTable");
-    var displayResult =document.getElementById("disResult")
-    var result = [];
     if (user) {
         fs.collection(user.uid).get().then((snapshot) => {      
             if(snapshot.size == 0) {
@@ -45,8 +43,7 @@ auth.onAuthStateChanged(user => {
                 cell5.innerHTML = doc.data().correctAnswers;    
                 cell6.innerHTML = doc.data().totalTimeTaken;
 
-                let percentage = doc.data().percentage;
-                result.push(percentage);
+
 
             });
 
@@ -54,7 +51,6 @@ auth.onAuthStateChanged(user => {
         })          
         .then(() => {
             console.log('Summary Listed below');
-            console.log(result);
 
         }).catch(err => {
             console.log(err.message);
