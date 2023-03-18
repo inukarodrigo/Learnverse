@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Exam Result Prediction</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+		}
+		h1 {
+			margin-top: 50px;
+			font-size: 36px;
+		}
+		input {
+			font-size: 18px;
+			padding: 10px;
+			margin: 10px;
+		}
+		button {
+			font-size: 18px;
+			padding: 10px 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			margin-top: 20px;
+		}
+		button:hover {
+			background-color: #3e8e41;
+		}
+		#result {
+			font-size: 24px;
+			font-weight: bold;
+			margin-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Exam Result Prediction</h1>
+	<label>Enter exam score (press enter to stop): </label>
+	<input type="number" id="score" placeholder="Enter score">
+	<button onclick="addScore()">Add Score</button>
+	<div id="scores"></div>
+	<div id="avg_score"></div>
+	<div id="result"></div>
+	<script>
+		var exam_scores = [];
+		function addScore() {
+			var score = document.getElementById("score").value;
+			if (score == "") {
+				return;
+			}
+			exam_scores.push(parseFloat(score));
+			document.getElementById("scores").innerHTML = "Scores: " + exam_scores.join(", ");
+			document.getElementById("score").value = "";
+			calculateAverage();
+		}
+		function calculateAverage() {
+			var sum = 0;
+			for (var i = 0; i < exam_scores.length; i++) {
+				sum += exam_scores[i];
+			}
+			if (exam_scores.length == 0) {
+				var avg_score = 0;
+			} else {
+				var avg_score = sum / exam_scores.length;
+			}
+			document.getElementById("avg_score").innerHTML = "Average Score: " + avg_score.toFixed(2);
+			predictResult(avg_score);
+		}
+		function predictResult(avg_score) {
+			if (avg_score >= 90) {
+				var result = "A+";
+			} else if (avg_score >= 75) {
+				var result = "A";
+			} else if (avg_score >= 65) {
+				var result = "B";
+			} else if (avg_score >= 55) {
+				var result = "C";
+			} else if (avg_score >= 40) {
+				var result = "D";
+			} else if (avg_score >= 35) {
+				var result = "E";
+			} else {
+				var result = "F";
+			}
+			document.getElementById("result").innerHTML = "Predicted Result: " + result;
+		}
+	</script>
+</body>
+</html>
