@@ -70,7 +70,9 @@ def redirect_to_landing():
 def exam_papers():
     return render_template("examPapers.html")
 
-
+@app.route("/redirect_to_exam_paper")
+def redirect_to_exam_paper():
+    return redirect("/examPapers")
 # @app.route("/landing")
 # def landing():
 #     return render_template("landing.html")
@@ -470,7 +472,9 @@ def people(id):
     return render_template('class/people.html', room_id=room_id, user=user, row=row, names=names)
 
     return
-
+@app.route('/predict')
+def predict():
+    return render_template("prediction.html")
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper
 @app.route('/retrieve_incorrect_questions', methods=['POST'])
