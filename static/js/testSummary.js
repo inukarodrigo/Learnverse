@@ -34,8 +34,7 @@ auth.onAuthStateChanged(user => {
                 cell5.setAttribute("data-th","Correct Answer");
                 var cell6 = row.insertCell(5);
                 cell6.setAttribute("data-th","Time Taken");
-                var cell7 = row.insertCell(6);
-                cell6.setAttribute("data-th","Average");
+
 
                 cell1.innerHTML = doc.data().quizParentTitle;
                 cell2.innerHTML = doc.data().quizSubTitle; 
@@ -43,7 +42,7 @@ auth.onAuthStateChanged(user => {
                 cell4.innerHTML = doc.data().percentage;    
                 cell5.innerHTML = doc.data().correctAnswers;    
                 cell6.innerHTML = doc.data().totalTimeTaken;
-                cell7.innerHTML = doc.data().Average;
+
             });
         })          
         .then(() => {

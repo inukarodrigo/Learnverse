@@ -138,7 +138,7 @@ def paper11():
 
 
 @app.route("/profilecard")
-def profile_card():
+def profile():
     return render_template("profilecard.html")
 
 
