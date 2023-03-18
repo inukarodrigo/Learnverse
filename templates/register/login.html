@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+
+
+
+    <style>
+
+        .navbar-custom {
+            background-color: lightgreen;
+        }
+
+    </style>
+    <title>Virtual Class</title>
+    <style>{% block css %} {% endblock %}</style>
+</head>
+<body>
+<div class="row" style="margin: 0 auto;">
+<div class="col-6" style="padding:50px;">
+
+
+
+    <h2 class="text-center">Login Now</h2>
+    <br>
+    
+    <form action="{{ url_for('vc_login') }}" method="post">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <input type="submit" class="btn btn-primary" value="Login">
+    </form>
+    <hr>
+    <div class="text-center">
+        Don`t have an account <a href="/virtualClassRoom">Create here</a>
+    </div><br>
+    <div class="text-center">
+    <a href="/selection"> Main menu</a>
+    </div>
+</div>
+<div class="col-6 mt-5" >
+
+    <img src="{{ url_for('static', filename='others/classroom1.png')}}" alt="">
+</div>
+</div>
+
+
+
+</body>
+</html>

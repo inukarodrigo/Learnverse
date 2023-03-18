@@ -1,0 +1,55 @@
+{% extends 'class/base.html' %}
+{% block class_link %}
+<div class="navbar-nav ml-auto">
+    <a class="nav-item nav-link active" href="{% url 'single' room.id %}"><i class="fas fa-bars"></i>  Stream<span class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" href="{% url 'detail' room.id %}"><i class="fas fa-file-signature"></i> Files</a>
+    <a class="nav-item nav-link" href="{% url 'people' room.id %}"> <i class="fas fa-users"></i> People</a>
+    <a class="nav-item nav-link" href="{% url 'session' room.id %}"> <i class="fas fa-video"></i> Session</a>
+    {% if user.is_authenticated %}
+    {% if user.is_teacher %}
+        <a class="nav-item nav-link" href="#"> <i class="fas fa-database"></i> Progress</a>
+
+    {% endif %}
+    {% endif %}
+    {% if user.is_student %}
+        <a class="nav-item nav-link" href=""  data-toggle="modal" data-target="#exampleModal">Leave Class <i class="fas fa-sign-out-alt"></i> </a>
+    {% endif %}
+</div>
+{% endblock %}
+{% block css %}
+.box{
+    box-shadow: 1px 1px 5px 1px #a9a7a7;
+    border-radius:10px;
+    text-align:center;
+}
+.box img{
+    width:100%;
+    border-radius:5%;
+
+}
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h2>Share Screen</h2>
+    </div>
+    <div>
+    {% if user.is_teacher %}
+        <ul>
+            <li><a href="{% url 'send_screen' room.id %}">Start session</a></li>
+        </ul>
+    {% endif %}
+    </div>
+    <div>
+        <video width="400" controls>
+            <source src="{{url}}" type="video/mp4">
+        Your browser does not support HTML5 video.
+        </video>
+
+    </div>
+
+
+
+
+
+{% endblock %}

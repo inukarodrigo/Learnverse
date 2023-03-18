@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+
+
+    <title>Create Class</title>
+    <style>
+
+        .navbar-custom {
+            background-color: lightgreen;
+        }
+        .s_box {
+            position: relative;
+            box-shadow: 2px 1px 7px 1px #e6e6e6;
+            border-radius: 10px;
+            background: rgb(34, 193, 195);
+            background: linear-gradient(72deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 81%);
+            overflow: hidden;
+            padding: 20px;
+        }
+        .s_box img{
+            position:absolute;
+            top:40%;
+            right:20px;
+            width:20%;
+            height:auto;
+        }
+
+    </style>
+</head>
+<body>
+<div class="row" style="margin: 0 auto;">
+    <div class="col-6" style="padding: 30px; background-color: #ebf4fb; margin-top:20px; border-radius: 10px; text-align: center; ">
+    
+    
+    
+        <h2 class="text-center">Create Class</h2>
+        <br>
+<form action="{{ url_for('create_class') }}" method="POST">
+    <div class="form-group">
+        <input type="text" id="name" name="name" class="form-control" placeholder="Write the Class Name" required>
+    </div>
+    <div class="form-group">
+        <input type="text" id="unit" name="unit" class="form-control" placeholder="Give a Class Unit" required>
+    </div>
+
+    <textarea name="detail" id="detail" class="form-control" placeholder="Describe more about the Class" required></textarea>
+    <button type="submit" class="btn btn-primary " style="width:100%; margin: 10px auto;" >Create</button>
+</form>
+
+</div>
+<div class="col-6">
+
+    <img src="{{ url_for('static', filename='others/classroom.png')}}" alt="">
+</div>
+</div>
+</body>
+</html>
