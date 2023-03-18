@@ -123,7 +123,7 @@ html
     margin-top: 45px;
     font-size: 16px;
     position: absolute;
-    font-style: bold;
+    font-weight: bold;
     border-radius: 20px;
 }
 
@@ -384,7 +384,7 @@ html
 }
 
 .good {
-  color: #f5e42f
+  color: #f5e42f;
   height: 8px;
 }
 .good .str-box.box1 div {

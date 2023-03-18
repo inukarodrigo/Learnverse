@@ -4,8 +4,8 @@ fetch('/get_questions_for_paper1')
   .then(response => response.json())
   .then(data => {
     quiz = data;
+    quiz = quiz.slice(0,10);  // Reducing the number of questions to 10 for the demonstration purposes
   });
-
 /*
 const quiz=[
 {

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/custom.css')}}">
+
+
+
+    <style>
+
+        .navbar-custom {
+            background-color: lightgreen;
+        }
+
+    </style>
+    <title>Virtual Class</title>
+    <style>{% block css %} {% endblock %}</style>
+</head>
+<body>
+<header>
+     <nav class="navbar navbar-expand-md navbar-light" style="justify-content: flex-end"; >
+          <ul style="list-style-type: none; display: flex">
+            <li class="nav-item">
+                <a class="nav-link btn btn-primary" href="/vc_login"> <i class="fas fa-sign-in-alt"></i> Login</a>
+            </li>
+          </ul>
+     </nav>
+</header>
+
+
+
+
+<div class="container">
+
+</div>
+
+
+        <div class="row">
+                <div class="col-6 main_section">
+                        <h5>Learnverse</h5>
+                        <h1> Virtual Classroom</h1>
+                        <span>Where you can <strong>Enjoy</strong> <br>Your <strong>Study</strong> </span><br>
+                        <hr>
+                        <a href="/vc_signup_as_student" class="btn btn-info"> Student</a> &nbsp; <a href="/vc_signup_as_teacher" class="btn btn-primary">Teacher</a>
+                               
+                </div>
+                <div class="col-6">
+                        <img src="{{ url_for('static', filename='others/classroom3.png')}}" alt="">
+                </div>
+            </div>
+
+<footer class="mainfooter" role="contentinfo" >
+    <div class="footer-middle" style=" padding-top: 1em;">
+    <div class="container">
+      <div class="row">
+
+    <div class="col-4">
+      <h5 style="color:rgb(49, 48, 48);">Learnverse Virtual Classroom</h5>
+    </div>
+        <div class="col-5"> <p> <strong> DSGP Project</strong> | Virtual Classrom </p></div>
+
+
+      </div>
+    </div>
+    </div>
+  </footer>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
+
+
