@@ -350,7 +350,6 @@ def teachers():
     c.close()
     return render_template('dashboard/teacher/teacher.html', rows=rows)
 
-
 @app.route('/view_class/<id>')
 def view_class(id):
     classroom_id = id
