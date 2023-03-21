@@ -1,17 +1,10 @@
 import sys
-from flask import Flask, render_template, redirect, jsonify, request, url_for, flash, send_file
+# from django.template.backends import django
+from flask import Flask, render_template, redirect, jsonify, request
 import importlib.machinery
 import importlib.util
 import os
-import sqlite3
-from werkzeug.security import generate_password_hash, check_password_hash
 import json
-
-from werkzeug.utils import secure_filename
-
-from VirtualClassroom import models
-
-directory = 'VirtualClassroom/shared_files'
 
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
@@ -54,8 +47,6 @@ file_path_for_the_csvFile2 = os.path.join(current_dir, 'Exam Paper Generation', 
 abs_path_for_the_csv_file2 = os.path.abspath(file_path_for_the_csvFile2)
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'mysecretkey'
-app.config['DATABASE'] = 'VirtualClassroom/db.sqlite3'
 
 
 # @app.route("/")
@@ -70,9 +61,7 @@ def redirect_to_landing():
 def exam_papers():
     return render_template("examPapers.html")
 
-@app.route("/redirect_to_exam_paper")
-def redirect_to_exam_paper():
-    return redirect("/examPapers")
+
 # @app.route("/landing")
 # def landing():
 #     return render_template("landing.html")
@@ -158,7 +147,7 @@ def paper11():
 
 
 @app.route("/profilecard")
-def profile():
+def profile_card():
     return render_template("profilecard.html")
 
 
@@ -203,9 +192,9 @@ def specialPaperBot():
     return render_template("spBot.html")
 
 
-@app.route("/botpage")
-def botpage():
-    return render_template("botpage.html")
+@app.route("/generalBot")
+def generalBot():
+    return render_template("generalBot.html")
 
 
 # Using the functions of other classes and returning the values in JSON format
@@ -221,7 +210,6 @@ def get_questions_for_specialPaper():
         examPaperGeneration.transform_the_questions_for_the_application_specialPaper(abs_path_for_the_db_file,
                                                                                      listOfLessons))
     return result
-
 
 @app.route('/vc_logout')
 def vc_logout():
@@ -474,6 +462,8 @@ def people(id):
 @app.route('/predict')
 def predict():
     return render_template("prediction.html")
+
+
 # This is to retrieve the incorrect questions that was answered by the student and pass it to the
 # get_questions_for_the_paper(listOfIncorrectQuestions) to get the questions to be displayed in the next paper
 @app.route('/retrieve_incorrect_questions', methods=['POST'])
