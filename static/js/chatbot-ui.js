@@ -12,12 +12,12 @@ function init() {
     document.getElementsByTagName('head')[0].appendChild(script);
 
     //--------------------------- Important Variables----------------------------
-    botLogoPath = "./imgs/bot-logo.png"
+    botLogoPath = "static/img/bot-logo.png"
 
     //--------------------------- Chatbot Frontend -------------------------------
     const chatContainer = document.getElementById("chat-container");
 
-    template = ` <button class='chat-btn'><img src = "{{ url_for('static', filename='/img/bot.jpg') }}" class = "icon" ></button>
+    template = ` <button class='chat-btn'><img src = "{{ url_for('static', filename='/img/bot-logo2.jpg') }}" class = "icon" ></button>
  
 
     <div class='chat-popup'>
@@ -112,13 +112,13 @@ function init() {
         // console.log(expandWindow.innerHTML)
         //closed-->open full screen
 
-        if (expandWindow.innerHTML == '<img src="./icons/open_fullscreen.png" class="icon">') {
-            expandWindow.innerHTML = `<img src = "./icons/close_fullscreen.png" class = 'icon'>`
+        if (expandWindow.innerHTML == '<img src="{{ url_for(\'static\', filename=\'/img/bot.jpg\') }}" class="icon">') {
+            expandWindow.innerHTML = `<img src = "{{ url_for('static', filename='/img/bot.jpg') }}" class = 'icon'>`
             root.style.setProperty('--chat-window-height', 80 + "%");
             root.style.setProperty('--chat-window-total-width', 85 + "%");
         }
-        else if (expandWindow.innerHTML == '<img src="./icons/close.png" class="icon">') {
-            expandWindow.innerHTML = `<img src = "./icons/close_fullscreen.png" class = 'icon'>`
+        else if (expandWindow.innerHTML == '<img src="{{ url_for(\'static\', filename=\'/img/bot.jpg\') }}"class="icon">') {
+            expandWindow.innerHTML = `<img src = "{{ url_for('static', filename='/img/bot.jpg') }}" class = 'icon'>`
             root.style.setProperty('--chat-window-height', 80 + "%");
             root.style.setProperty('--chat-window-total-width', 85 + "%");
         }
