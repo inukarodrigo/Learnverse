@@ -1,0 +1,36 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-exercise",
+      "2": "I-exercise",
+      "3": "L-exercise",
+      "4": "U-exercise",
+      "5": "B-sleep",
+      "6": "I-sleep",
+      "7": "L-sleep",
+      "8": "U-sleep",
+      "9": "B-stress",
+      "10": "I-stress",
+      "11": "L-stress",
+      "12": "U-stress",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-exercise": 1,
+      "I-exercise": 2,
+      "L-exercise": 3,
+      "U-exercise": 4,
+      "B-sleep": 5,
+      "I-sleep": 6,
+      "L-sleep": 7,
+      "U-sleep": 8,
+      "B-stress": 9,
+      "I-stress": 10,
+      "L-stress": 11,
+      "U-stress": 12,
+      "O": 0
+    },
+    "num_tags": 13
+  }
+]
