@@ -1,11 +1,16 @@
+import sqlite3
 import sys
 # from django.template.backends import django
-from flask import Flask, render_template, redirect, jsonify, request
+from flask import Flask, render_template, redirect, jsonify, request, flash, url_for, send_file
 import importlib.machinery
 import importlib.util
 import os
 import json
 
+from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
+
+from VirtualClassroom import models
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
