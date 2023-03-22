@@ -9,8 +9,12 @@ import json
 
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
-
 from VirtualClassroom import models
+
+directory = 'VirtualClassroom/shared_files'
+
+
+
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -52,7 +56,8 @@ file_path_for_the_csvFile2 = os.path.join(current_dir, 'Exam Paper Generation', 
 abs_path_for_the_csv_file2 = os.path.abspath(file_path_for_the_csvFile2)
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'mysecretkey'
+app.config['DATABASE'] = 'VirtualClassroom/db.sqlite3'
 
 # @app.route("/")
 # def home():
