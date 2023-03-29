@@ -109,52 +109,36 @@ nlu:
     - am I talking to a bot?
     - am I talking to a human?
 
-- intent: courses
-  examples: |
-    - what different courses are offered
-    - different courses provided by the university
-    - list of different courses
-    - list of different programs
-    - can you help me with the programs Chandigarh university offers
-    - different programs offered by the University
-    - different training programs offered
 
 - intent: my_name_is
   examples: |
-    - [Shariq Ayaz] (person)
-    - I am [Areesha] (person)
+    - [Sam Peterson] (person)
+    - I am [Aneesha] (person)
     - I am [Ashna] (person)
-    - I'm [Aliyah] (person)
-    - I am [Rahil Inzamam] (person)
-    - My name is [Jamal Anjum] (person)
-    - My name is [Nazin] (person)
+    - I'm [Aliya] (person)
+    - I am [Rahul] (person)
+    - My name is [Janith Kasun] (person)
+    - My name is [Nalini] (person)
     - I am [Sana] (person)
-    - Myself [Ahad] (person)
-    - This side [Samad] (person)
+    - Myself [Amal] (person)
+    - This side [Samal] (person)
 
-- intent: ask_apply_online
-  examples: |
-    - Can I apply online?
-    - How can I apply online?
-    - Online application process
-    - Online application procedure
-    - What is online application process?
-    - Can you tell me the online application process?
-    - Is it possible to apply online?
-    - Is there any way to apply online?
-    - Can you please help me with the process of online application?
 
-- intent: ask_placements
+- intent: ask_virtual_classroom
   examples: |
-    - placement offers
-    - what are the previous placement offers?
-    - different placement offers offered to students
-    - different companies offers
-    - different placement offered
-    - previous placement offers
-    - what are the different placement offers offered to students
-    - student's placement offers
-    - what are the placement offers
+    - How do I join the virtual classroom?
+    - What can be done in the virtual classroom?
+    - Is there a virtual classroom?
+    - Purpose of virtual classroom
+    - virtual classroom
+
+- intent: ask_special_paper
+  examples: |
+    - What is done in special paper?
+    - How to do the special paper?
+    - Why i should do the special paper?
+    
+
 #added later
 
 - intent: inform

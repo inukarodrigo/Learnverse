@@ -1,0 +1,11 @@
+[
+  {
+    "text": "don't like that",
+    "intent": "deny",
+    "intent_prediction": {
+      "name": "out_of_scope",
+      "confidence": 0.516846239566803
+    }
+  }
+]
+
