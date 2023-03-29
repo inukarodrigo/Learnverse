@@ -4,7 +4,6 @@ import uuid
 import random
 
 from flask import Flask
-from sqlalchemy.testing import db
 from werkzeug.security import generate_password_hash
 
 app = Flask(__name__)
