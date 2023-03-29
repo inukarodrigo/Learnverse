@@ -1,10 +1,19 @@
+import sqlite3
 import sys
 # from django.template.backends import django
-from flask import Flask, render_template, redirect, jsonify, request
+from flask import Flask, render_template, redirect, jsonify, request, flash, url_for, send_file
 import importlib.machinery
 import importlib.util
 import os
 import json
+
+from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
+from VirtualClassroom import models
+
+directory = 'VirtualClassroom/shared_files'
+
+
 
 
 # Creating a reference to the examPaperGeneration.py file so that functions in that file can be used
@@ -47,7 +56,8 @@ file_path_for_the_csvFile2 = os.path.join(current_dir, 'Exam Paper Generation', 
 abs_path_for_the_csv_file2 = os.path.abspath(file_path_for_the_csvFile2)
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = 'mysecretkey'
+app.config['DATABASE'] = 'VirtualClassroom/db.sqlite3'
 
 # @app.route("/")
 # def home():
@@ -337,6 +347,7 @@ def teachers():
     rows = c.fetchall()
     c.close()
     return render_template('dashboard/teacher/teacher.html', rows=rows)
+
 
 @app.route('/view_class/<id>')
 def view_class(id):
