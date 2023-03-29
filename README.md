@@ -35,6 +35,9 @@ This Flask-based web application helps advanced level ICT students by generating
 #### Virtual Classroom:
 ![Virtual Classroom](screenshots/Virtual_Classroom.jpeg)
 
+#### General Chat Bot - Learny:
+![image](https://user-images.githubusercontent.com/88397747/228536170-19ee831c-d81d-49a8-b27b-b8542e633422.png
+)
 # How To Use
 ### Prerequisites
 
@@ -52,19 +55,35 @@ git clone https://github.com/inukarodrigo/Learnverse.git
 
 ### 2. Install [Pipenv](https://pipenv.pypa.io/en/latest/)
 
-### 3. Create the virtualenv
+### 3. Start the bot in a Conda environment
+1 First create a conda environemt
+open conda prompt in 
 
-```bash
-## run following command from `Learnverse` directory
-pipenv shell
+- open [Anaconda](https://www.anaconda.com/products/distribution) prompt
+- change to the project file
+> Projects\Learnverse\AI Chatbot Guide
+- Create the Conda environment using the following command
 ```
-
-### 4. Run development server
-
-```bash
-python app.py
+conda create --name rasaenv python=3.7.6
 ```
-
+- Activate the Conda environment using the following command
+```
+conda activate rasaenv
+```
+2 Install following packages
+```
+conda install ujson
+conda install tensorflow
+```
+3 Install rasa using pip(currently no conda install version)
+```
+pip install rasa
+```
+Run the following command to run the bot in the web application
+```
+rasa run -m models --enable-api --cors "*"
+```
+Then the Bot will start
 ## Contributors
 
 We would like to thank the following contributors for their help with this project:
